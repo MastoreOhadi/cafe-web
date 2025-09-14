@@ -1,14 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { TranslateLoader } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable, shareReplay } from 'rxjs';
 import yaml from 'yamljs';
 
 @Injectable({
-  providedIn: 'root'
+   providedIn: 'root'
 })
 export class YamlTranslateHttpLoader implements TranslateLoader {
-   constructor(private http: HttpClient) {}
+   private http = inject(HttpClient);
 
    // Cache per-language translation observables to avoid repeated HTTP requests
    private readonly languageToTranslation$: Map<string, Observable<any>> = new Map();

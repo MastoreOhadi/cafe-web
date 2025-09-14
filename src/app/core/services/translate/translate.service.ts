@@ -6,7 +6,7 @@ import * as settingsActions from '../../../store/settings/settings.actions';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',
+   providedIn: 'root',
 })
 export class AppTranslateService {
    private translate = inject(TranslateService);
