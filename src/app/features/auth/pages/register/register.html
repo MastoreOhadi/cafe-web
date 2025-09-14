@@ -1,1 +1,119 @@
-<p>register works!</p>
+<div class="register-container animate-fade-in">
+  <!-- Header Section -->
+  <div class="header">
+    <h1>{{ 'register.title' | translate }}</h1>
+    <p class="subtitle">{{ 'register.subtitle' | translate }}</p>
+  </div>
+
+  <!-- Settings Controls Section -->
+  <div class="settings-controls card">
+    <h2>🎛️ {{ 'register.settings' | translate }}</h2>
+
+    <!-- Language and Theme Switchers -->
+    <div class="switchers-row">
+      <div class="switcher-group">
+        <label class="switcher-label">{{ 'register.language' | translate }}</label>
+        <app-language-switcher></app-language-switcher>
+      </div>
+
+      <div class="switcher-group">
+        <label class="switcher-label">{{ 'register.theme' | translate }}</label>
+        <app-theme-switcher></app-theme-switcher>
+      </div>
+    </div>
+
+    <!-- Test Message -->
+    <div class="test-message">
+      <p>{{ 'register.testMessage' | translate }}</p>
+    </div>
+
+    <!-- Current State Display -->
+    <div class="state-display">
+      <h3>{{ 'register.currentState' | translate }}:</h3>
+      <div class="state-grid">
+        <div class="state-item">
+          <span class="state-label">{{ 'register.language' | translate }}:</span>
+          <span class="state-value">{{ currentLanguage$ | async }}</span>
+        </div>
+        <div class="state-item">
+          <span class="state-label">{{ 'register.theme' | translate }}:</span>
+          <span class="state-value">{{ currentTheme$ | async }}</span>
+        </div>
+        <div class="state-item">
+          <span class="state-label">{{ 'register.direction' | translate }}:</span>
+          <span class="state-value">{{ (currentLanguage$ | async) === 'fa' || (currentLanguage$ | async) === 'ar' ? 'RTL' : 'LTR' }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Registration Form -->
+  <form class="register-form" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="username">{{ 'register.username' | translate }}</label>
+      <input
+        type="text"
+        id="username"
+        [(ngModel)]="formData.username"
+        name="username"
+        required>
+    </div>
+
+    <div class="form-group">
+      <label for="email">{{ 'register.email' | translate }}</label>
+      <input
+        type="email"
+        id="email"
+        [(ngModel)]="formData.email"
+        name="email"
+        required>
+    </div>
+
+    <div class="form-group">
+      <label for="password">{{ 'register.password' | translate }}</label>
+      <input
+        type="password"
+        id="password"
+        [(ngModel)]="formData.password"
+        name="password"
+        required>
+    </div>
+
+    <div class="form-group">
+      <label for="confirmPassword">{{ 'register.confirmPassword' | translate }}</label>
+      <input
+        type="password"
+        id="confirmPassword"
+        [(ngModel)]="formData.confirmPassword"
+        name="confirmPassword"
+        required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+      {{ 'register.submit' | translate }}
+    </button>
+  </form>
+
+  <!-- Features Demo -->
+  <div class="features-demo">
+    <h2>✨ Features Demo</h2>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h3>🌐 Internationalization</h3>
+        <p>Switch between English and Persian languages. Notice how the text direction changes automatically!</p>
+      </div>
+      <div class="feature-card">
+        <h3>🎨 Theme Switching</h3>
+        <p>Toggle between light and dark themes. The entire page styling adapts instantly!</p>
+      </div>
+      <div class="feature-card">
+        <h3>📱 Responsive Design</h3>
+        <p>This page works perfectly on all device sizes with Tailwind CSS.</p>
+      </div>
+      <div class="feature-card">
+        <h3>🔄 State Management</h3>
+        <p>Using NgRx for centralized state management of settings.</p>
+      </div>
+    </div>
+  </div>
+</div>
