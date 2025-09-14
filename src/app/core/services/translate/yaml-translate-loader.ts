@@ -8,7 +8,7 @@ import yaml from 'yamljs';
    providedIn: 'root'
 })
 export class YamlTranslateHttpLoader implements TranslateLoader {
-   private http = inject(HttpClient);
+   constructor(private http: HttpClient) {}
 
    // Cache per-language translation observables to avoid repeated HTTP requests
    private readonly languageToTranslation$: Map<string, Observable<any>> = new Map();
