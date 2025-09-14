@@ -1,4 +1,4 @@
-import { ApplicationConfig, importProvidersFrom, provideBrowserGlobalErrorListeners, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -13,29 +13,29 @@ import { SettingsEffects } from './store/settings/settings.effects';
 import { provideEffects } from '@ngrx/effects';
 
 export const appConfig: ApplicationConfig = {
-  providers: [
-    provideBrowserGlobalErrorListeners(),
-    provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes), provideClientHydration(withEventReplay()),
-    provideHttpClient(
-        withFetch(),
-        withXsrfConfiguration({
-          cookieName: "csrf_token",
-          headerName: "X-Csrf-Token"
-        }),
-        withInterceptors([jwtInterceptor])
+   providers: [
+      // provideBrowserGlobalErrorListeners(),
+      provideZoneChangeDetection({ eventCoalescing: true }),
+      provideRouter(routes), provideClientHydration(withEventReplay()),
+      provideHttpClient(
+         withFetch(),
+         withXsrfConfiguration({
+            cookieName: "csrf_token",
+            headerName: "X-Csrf-Token"
+         }),
+         withInterceptors([jwtInterceptor])
       ),
       importProvidersFrom(TranslateModule.forRoot({
-          loader: {
-              provide: TranslateLoader,
-              useFactory: (http: HttpClient) => new YamlTranslateHttpLoader(http),
-              deps: [HttpClient],
-          },
-          fallbackLang: "fa",
+         loader: {
+            provide: TranslateLoader,
+            useFactory: (http: HttpClient) => new YamlTranslateHttpLoader(http),
+            deps: [HttpClient],
+         },
+         fallbackLang: "fa",
       })),
       provideStore({
-        settings: settingsReducer
+         settings: settingsReducer
       }),
       provideEffects([SettingsEffects]),
-  ]
+   ]
 };
