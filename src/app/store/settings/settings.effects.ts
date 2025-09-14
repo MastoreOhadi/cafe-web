@@ -16,7 +16,7 @@ export class SettingsEffects implements OnInitEffects {
    private translate = inject(TranslateService);
 
    constructor() {
-      this.translate.addLangs(['en', 'fa']);
+      this.translate.addLangs(['en', 'fa', 'ar']);
    }
 
    loadSettings$ = createEffect(() =>
@@ -94,14 +94,14 @@ export class SettingsEffects implements OnInitEffects {
    applyLanguage$ = createEffect(
       () =>
          this.actions$.pipe(
-         ofType(settingsActions.setLanguage),
-         tap(({ language }) => {
-            this.translate.use(language);
-            if (typeof document !== 'undefined') {
-               document.documentElement.dir = language === 'fa' ? 'rtl' : 'ltr';
-               document.documentElement.lang = language;
-            }
-         })
+            ofType(settingsActions.setLanguage),
+            tap(({ language }) => {
+               this.translate.use(language);
+               if (typeof document !== 'undefined') {
+                  document.documentElement.dir = (language === 'fa' || language === 'ar') ? 'rtl' : 'ltr';
+                  document.documentElement.lang = language;
+               }
+            })
          ),
       { dispatch: false }
    );

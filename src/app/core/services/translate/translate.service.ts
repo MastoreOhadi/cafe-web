@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 })
 export class AppTranslateService {
    private translate = inject(TranslateService);
-   private readonly supportedLangs = ['en', 'fa'];
+   private readonly supportedLangs = ['en', 'fa', 'ar'];
 
    currentLang$: Observable<string>;
 

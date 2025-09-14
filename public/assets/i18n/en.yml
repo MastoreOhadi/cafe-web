@@ -13,6 +13,7 @@ register:
   dark: "Dark"
   english: "English"
   persian: "Persian"
+  arabic: "Arabic"
   testMessage: "This is a test message to demonstrate language switching"
   settings: "Settings"
   currentState: "Current State"
