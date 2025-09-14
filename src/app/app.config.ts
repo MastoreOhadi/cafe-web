@@ -31,7 +31,7 @@ export const appConfig: ApplicationConfig = {
               useFactory: (http: HttpClient) => new YamlTranslateHttpLoader(http),
               deps: [HttpClient],
           },
-          defaultLanguage: "fa",
+          fallbackLang: "fa",
       })),
       provideStore({
         settings: settingsReducer

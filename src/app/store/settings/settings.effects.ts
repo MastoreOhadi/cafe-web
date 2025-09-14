@@ -17,7 +17,6 @@ export class SettingsEffects implements OnInitEffects {
 
   constructor() {
     this.translate.addLangs(['en', 'fa']);
-    this.translate.setFallbackLang('fa');
   }
 
   loadSettings$ = createEffect(() =>
