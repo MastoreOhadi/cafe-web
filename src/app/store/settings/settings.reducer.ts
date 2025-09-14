@@ -14,5 +14,6 @@ export const initialState: SettingsState = {
 export const settingsReducer = createReducer(
    initialState,
    on(actions.setTheme, (state, { theme }) => ({ ...state, theme })),
+   on(actions.toggleTheme, (state) => ({ ...state, theme: state.theme === 'dark' ? 'light' as actions.Theme : 'dark' as actions.Theme })),
    on(actions.setLanguage, (state, { language }) => ({ ...state, language }))
 );
