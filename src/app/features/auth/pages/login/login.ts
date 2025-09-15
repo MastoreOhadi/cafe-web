@@ -7,7 +7,7 @@ import { Router } from "@angular/router";
 import { AuthService } from "../../../../core/services/auth/auth.service";
 
 @Component({
-	selector: 'app-test',
+	 selector: 'app-test',
 	standalone: true,
 	imports: [CommonModule, ReactiveFormsModule],
 	templateUrl: './login.html',
