@@ -5,17 +5,19 @@ import { catchError, finalize, of } from "rxjs";
 import { RegisterData } from "../../models";
 import { Router } from "@angular/router";
 import { AuthService } from "../../../../core/services/auth/auth.service";
+import { LanguageSwitcherComponent } from "../../../../core/components/language-switcher/language-switcher";
 
 @Component({
-	 selector: 'app-test',
+	selector: 'app-test',
 	standalone: true,
-	imports: [CommonModule, ReactiveFormsModule],
+	imports: [CommonModule, ReactiveFormsModule, LanguageSwitcherComponent],
 	templateUrl: './login.html',
 })
 export class Login {
 	isLoading = false;
 	errorMessage: string | null = null;
 	successMessage: string | null = null;
+	isSubmitting = false;
 
 	private fb = inject(FormBuilder);
 	private authService = inject(AuthService);
@@ -26,41 +28,18 @@ export class Login {
 
 	signupForm: FormGroup = this.fb.group(
 		{
-			email: ["", [Validators.required, Validators.email, Validators.maxLength(255)]],
 			phone: ["", [Validators.required, Validators.pattern(/^\+?[1-9]\d{1,14}$/)]],
-			username: [
-				"",
-				[Validators.required, Validators.minLength(3), Validators.maxLength(20), Validators.pattern(/^[a-zA-Z0-9]+$/)],
-			],
-			fullName: ["", [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
-			province: ["", Validators.required],
-			city: ["", Validators.required],
 			password: ["", [Validators.required, Validators.minLength(8), Validators.maxLength(72)]],
-			confirmPassword: ["", Validators.required],
-		}, {
-			validators: [this.passwordMatchValidator],
 		}
   	);
 
-	togglePasswordVisibility(): void {
+	togglePassword() {
 		this.showPassword = !this.showPassword;
 	}
 
-	toggleConfirmPasswordVisibility(): void {
-		this.showConfirmPassword = !this.showConfirmPassword;
-	}
-
-	private passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
-		const password = control.get('password')?.value;
-		const confirmPassword = control.get('confirmPassword')?.value;
-
-		return password && confirmPassword && password !== confirmPassword
-			? { passwordMismatch: true }
-			: null;
-	}
-
 	onSubmit() {
-		if (this.signupForm.valid && !this.isLoading) {
+		if (this.signupForm.valid) {
+			this.isSubmitting = true;
 			this.isLoading = true;
 			this.errorMessage = null;
 			this.successMessage = null;
@@ -79,7 +58,7 @@ export class Login {
 			};
 
 			this.authService
-				.register(payload)
+				.login(payload)
 				.pipe(
 					catchError((error) => {
 						console.error("Registration error:", error);
@@ -88,19 +67,22 @@ export class Login {
 					}),
 					finalize(() => {
 						this.isLoading = false;
+						this.isSubmitting = false;
 					})
 				)
 				.subscribe((response: any) => {
 					if (response) {
 						this.successMessage = "ثبت نام با موفقیت انجام شد. در حال انتقال به صفحه ورود...";
 						setTimeout(() => {
-							this.router.navigate(["/login"]);
+							this.router.navigate(["/signup"]);
 						}, 3000);
 					}
 				});
 
 		} else {
-			this.signupForm.markAllAsTouched();
+			Object.keys(this.signupForm.controls).forEach(key => {
+				this.signupForm.get(key)?.markAsTouched();
+			});
 		}
 	}
 }
