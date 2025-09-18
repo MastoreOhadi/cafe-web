@@ -1,0 +1,114 @@
+<div class="w-full min-h-screen bg-gray-50">
+  <!-- Header -->
+  <div class="relative">
+    <img
+      src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=1200"
+      alt="Cafe cover"
+      class="w-full h-48 object-cover rounded-b-2xl"
+    />
+    <div class="absolute -bottom-12 left-1/2 transform -translate-x-1/2">
+      <img
+        src="https://images.unsplash.com/photo-1527766833261-b09c3163a791?w=200"
+        alt="Cafe Logo"
+        class="w-24 h-24 rounded-full border-4 border-white shadow-lg"
+      />
+    </div>
+  </div>
+
+  <!-- Cafe Name + Actions -->
+  <div class="mt-16 text-center">
+    <h1 class="text-2xl font-bold">Cafe Paradise</h1>
+    <p class="text-gray-500">@cafeparadise</p>
+    <div class="flex justify-center gap-4 mt-4">
+      <button class="px-4 py-2 bg-blue-600 text-white rounded-lg">Follow</button>
+      <button class="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg">Message</button>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="border-b mt-6">
+    <nav class="flex justify-center gap-6">
+      <button (click)="activeTab = 'menu'" [class.font-bold]="activeTab === 'menu'">Menu</button>
+      <button (click)="activeTab = 'about'" [class.font-bold]="activeTab === 'about'">About</button>
+      <button (click)="activeTab = 'gallery'" [class.font-bold]="activeTab === 'gallery'">Gallery</button>
+      <button (click)="activeTab = 'reviews'" [class.font-bold]="activeTab === 'reviews'">Reviews</button>
+      <button (click)="activeTab = 'followers'" [class.font-bold]="activeTab === 'followers'">Followers</button>
+    </nav>
+  </div>
+
+  <!-- Tab Content -->
+  <div class="p-6">
+    <!-- Menu -->
+    <div *ngIf="activeTab === 'menu'" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="bg-white p-4 rounded-xl shadow">
+        <img src="https://images.unsplash.com/photo-1515442261605-cd4cebc4918e?w=400" class="rounded-lg w-full h-32 object-cover" />
+        <h3 class="font-semibold mt-2">Espresso</h3>
+        <p class="text-sm text-gray-500">Rich and bold</p>
+        <p class="font-bold mt-1">80,000 IRR</p>
+      </div>
+      <div class="bg-white p-4 rounded-xl shadow">
+        <img src="https://images.unsplash.com/photo-1551024709-8f23befc6cf7?w=400" class="rounded-lg w-full h-32 object-cover" />
+        <h3 class="font-semibold mt-2">Cheesecake</h3>
+        <p class="text-sm text-gray-500">Sweet and creamy</p>
+        <p class="font-bold mt-1">120,000 IRR</p>
+      </div>
+    </div>
+
+    <!-- About -->
+    <div *ngIf="activeTab === 'about'">
+      <h3 class="font-semibold text-lg">About the Cafe</h3>
+      <p class="text-gray-600 mt-2">Open from 9AM - 11PM. Cozy place for friends and freelancers.</p>
+      <p class="text-gray-600 mt-1">Address: <a href="#" class="text-blue-600">View on Google Maps</a></p>
+      <div class="flex gap-3 mt-3">
+        <a href="#" class="text-blue-500">Instagram</a>
+        <a href="#" class="text-blue-500">Telegram</a>
+        <a href="#" class="text-blue-500">WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- Gallery -->
+    <div *ngIf="activeTab === 'gallery'" class="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <img src="https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?w=400" class="rounded-lg object-cover" />
+      <img src="https://images.unsplash.com/photo-1498804103079-a6351b050096?w=400" class="rounded-lg object-cover" />
+      <img src="https://images.unsplash.com/photo-1559628233-9d9a8a85a57c?w=400" class="rounded-lg object-cover" />
+      <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400" class="rounded-lg object-cover" />
+    </div>
+
+    <!-- Reviews -->
+    <div *ngIf="activeTab === 'reviews'" class="space-y-4">
+      <div class="bg-white p-4 rounded-lg shadow">
+        <div class="flex items-center justify-between">
+          <span class="font-semibold">Ali</span>
+          <span class="text-yellow-500">⭐⭐⭐⭐⭐</span>
+        </div>
+        <p class="text-gray-600 mt-2">Best coffee I’ve had in Tehran!</p>
+      </div>
+      <div class="bg-white p-4 rounded-lg shadow">
+        <div class="flex items-center justify-between">
+          <span class="font-semibold">Sara</span>
+          <span class="text-yellow-500">⭐⭐⭐⭐</span>
+        </div>
+        <p class="text-gray-600 mt-2">Nice vibe, cheesecake was awesome.</p>
+      </div>
+    </div>
+
+    <!-- Followers -->
+    <div *ngIf="activeTab === 'followers'" class="flex flex-wrap gap-3">
+      <div class="flex flex-col items-center">
+        <img src="https://images.unsplash.com/photo-1603415526960-f7e0328a02c3?w=100" class="rounded-full" />
+        <span class="text-sm">user1</span>
+      </div>
+      <div class="flex flex-col items-center">
+        <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=100" class="rounded-full" />
+        <span class="text-sm">user2</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Order Button -->
+  <div class="fixed bottom-6 right-6">
+    <button class="bg-green-600 text-white px-6 py-3 rounded-full shadow-lg">
+      سفارش بده
+    </button>
+  </div>
+</div>
