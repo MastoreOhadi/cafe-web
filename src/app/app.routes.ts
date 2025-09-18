@@ -11,5 +11,10 @@ export const routes: Routes = [
         path: "login",
         loadComponent: () =>
             import("../app/features/auth/pages/login/login").then(c => c.Login)
-    },
+    }, {
+        title: "page",
+        path: "page",
+        loadComponent: () =>
+            import("../app/features/cafe/pages/cafe-page/cafe-page").then(c => c.CafePage)
+    }
 ];
