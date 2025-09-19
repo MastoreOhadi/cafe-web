@@ -4,13 +4,11 @@ import { ApiService } from '../api/api.service';
 import { catchError, Observable, of, switchMap, tap } from 'rxjs';
 
 export interface RegisterData {
-   email: string;
+   name: string;
    phone: string;
-   username: string;
-   password: string;
-   full_name: string;
-   province: string;
    city: string;
+   province: string;
+   password: string;
 }
 
 @Injectable({
