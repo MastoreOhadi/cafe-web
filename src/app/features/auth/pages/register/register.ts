@@ -1,42 +1,130 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { selectLanguage, selectTheme } from '../../../../store/settings/settings.selectors';
-import { ThemeSwitcherComponent } from '../../../../core/components/theme-switcher/theme-switcher';
-import { LanguageSwitcherComponent } from '../../../../core/components/language-switcher/language-switcher';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { debounceTime, distinctUntilChanged, finalize } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+
+import { NavigationBarComponent } from '../../../../core/components/navigation-bar/navigation-bar';
+import { AuthService, RegisterData } from '../../../../core/services/auth/auth.service';
+import { CustomValidators } from '../../../../core/validators/custom-validators';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { CitySelectorComponent } from '../../components/city/city-selector.component';
 
 @Component({
   selector: 'app-register',
-  imports: [CommonModule, FormsModule, TranslateModule, ThemeSwitcherComponent, LanguageSwitcherComponent],
+  imports: [CommonModule, ReactiveFormsModule, TranslateModule, NavigationBarComponent, CitySelectorComponent],
   templateUrl: './register.html',
   styleUrl: './register.scss'
 })
 export class Register {
-  private store = inject(Store);
+  private authService = inject(AuthService);
+  private fb = inject(FormBuilder);
+  private translate = inject(TranslateService);
 
-  // Observable properties
-  currentLanguage$: Observable<string>;
-  currentTheme$: Observable<string>;
+  registerForm: FormGroup = this.fb.group({
+    fullName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+    phone: ['', [Validators.required, CustomValidators.iranianPhone]],
+    city: ['', [Validators.required, Validators.minLength(2)]],
+    password: ['', [
+      Validators.required,
+      Validators.minLength(8),
+      CustomValidators.passwordStrength
+    ]],
+    confirmPassword: ['', Validators.required],
+    acceptTerms: [false, Validators.requiredTrue]
+  }, {
+    validators: [CustomValidators.match('password', 'confirmPassword')]
+  });
 
-  // Form data
-  formData = {
-    username: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
-  };
+  password = toSignal(this.registerForm.get('password')!.valueChanges, { initialValue: '' });
+
+  // Signals for UI state
+  showPassword = signal(false);
+  showConfirmPassword = signal(false);
+  isSubmitting = signal(false);
+  errorMessage = signal<string | null>(null);
+  successMessage = signal<string | null>(null);
+
+  passwordStrength = computed(() => {
+    const password = this.password();
+    if (!password) return { score: 0, text: '' };
+
+    let score = 0;
+    if (password.length >= 8) score++;
+    if (/[A-Z]/.test(password)) score++;
+    if (/[0-9]/.test(password)) score++;
+    if (/[^A-Za-z0-9]/.test(password)) score++;
+
+    const texts = [
+      this.translate.instant('auth.passwordStrength.veryWeak'),
+      this.translate.instant('auth.passwordStrength.weak'),
+      this.translate.instant('auth.passwordStrength.medium'),
+      this.translate.instant('auth.passwordStrength.strong'),
+      this.translate.instant('auth.passwordStrength.veryStrong')
+    ];
+
+    return { score, text: texts[score] };
+  });
+
 
   constructor() {
-    this.currentLanguage$ = this.store.select(selectLanguage);
-    this.currentTheme$ = this.store.select(selectTheme);
+    // Real-time phone validation (cleaner with takeUntilDestroyed)
+    this.registerForm.get('phone')?.valueChanges.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      takeUntilDestroyed()
+    ).subscribe(value => {
+      if (value && !/^09\d{9}$/.test(value)) {
+        this.registerForm.get('phone')?.setErrors({ iranianPhone: true });
+      }
+    });
   }
 
+  togglePassword(type: 'password' | 'confirm'): void {
+    if (type === 'password') {
+      this.showPassword.update(v => !v);
+    } else {
+      this.showConfirmPassword.update(v => !v);
+    }
+  }
 
-  // Form submission
+  private markAllTouched(): void {
+    Object.values(this.registerForm.controls).forEach(control => {
+      control.markAsTouched();
+    });
+  }
+
   onSubmit(): void {
-    console.log('Form submitted:', this.formData);
+    if (this.registerForm.invalid) {
+      this.markAllTouched();
+      return;
+    }
+
+    this.isSubmitting.set(true);
+    this.errorMessage.set(null);
+    this.successMessage.set(null);
+
+    const { fullName, phone, city, password } = this.registerForm.value;
+    const payload: RegisterData = {
+      name: fullName,
+      phone: phone,
+      city: city.cityId,
+      province: city.provinceId,
+      password: password
+    };
+    console.log(payload)
+
+    this.authService.register(payload).pipe(
+      finalize(() => this.isSubmitting.set(false))
+    ).subscribe({
+      next: () => {
+        this.successMessage.set(this.translate.instant('auth.register.success'));
+        this.registerForm.reset();
+      },
+      error: (error) => {
+        this.errorMessage.set(error.message || this.translate.instant('auth.register.error'));
+      }
+    });
   }
 }
