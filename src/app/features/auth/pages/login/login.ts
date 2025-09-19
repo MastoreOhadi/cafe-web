@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from "@angular/core";
+import { Component, inject, OnInit, signal } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl, ValidationErrors } from "@angular/forms";
 import { catchError, finalize, of } from "rxjs";
@@ -6,11 +6,13 @@ import { RegisterData } from "../../models";
 import { Router } from "@angular/router";
 import { AuthService } from "../../../../core/services/auth/auth.service";
 import { LanguageSwitcherComponent } from "../../../../core/components/language-switcher/language-switcher";
+import { NavigationBarComponent } from "../../../../core/components/navigation-bar/navigation-bar";
+import { rxResource } from "@angular/core/rxjs-interop";
 
 @Component({
 	selector: 'app-test',
 	standalone: true,
-	imports: [CommonModule, ReactiveFormsModule, LanguageSwitcherComponent],
+	imports: [CommonModule, ReactiveFormsModule, NavigationBarComponent],
 	templateUrl: './login.html',
 })
 export class Login {
@@ -26,12 +28,10 @@ export class Login {
 	showPassword = false;
 	showConfirmPassword = false;
 
-	signupForm: FormGroup = this.fb.group(
-		{
-			phone: ["", [Validators.required, Validators.pattern(/^\+?[1-9]\d{1,14}$/)]],
-			password: ["", [Validators.required, Validators.minLength(8), Validators.maxLength(72)]],
-		}
-  	);
+	signupForm: FormGroup = this.fb.group({
+		phone: ["", [Validators.required, Validators.pattern(/^\+?[1-9]\d{1,14}$/)]],
+		password: ["", [Validators.required, Validators.minLength(8), Validators.maxLength(72)]],
+	});
 
 	togglePassword() {
 		this.showPassword = !this.showPassword;
