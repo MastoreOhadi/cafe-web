@@ -1,20 +1,42 @@
 title: "Coffee"
-register:
-  title: "Register"
-  subtitle: "Create your account"
-  username: "Username"
-  email: "Email"
-  password: "Password"
-  confirmPassword: "Confirm Password"
-  submit: "Register"
-  language: "Language"
-  theme: "Theme"
-  light: "Light"
-  dark: "Dark"
-  english: "English"
-  persian: "Persian"
-  arabic: "Arabic"
-  testMessage: "This is a test message to demonstrate language switching"
-  settings: "Settings"
-  currentState: "Current State"
-  direction: "Direction"
+auth:
+  register:
+    title: Register
+    subtitle: Create a new account
+    fullName: Full Name
+    phone: Phone Number
+    city: City
+    password: Password
+    confirmPassword: Confirm Password
+    acceptTerms: I agree to the <0>Terms and Conditions</0> and <1>Privacy Policy</1>
+    button: Register
+    loading: Registering...
+    success: Registration completed successfully!
+    error: An error occurred during registration
+    alreadyHaveAccount: Already have an account? <0>Sign in</0>
+    footer: 'By registering, you become part of our cafe family'
+  passwordStrength:
+    veryWeak: Very Weak
+    weak: Weak
+    medium: Medium
+    strong: Strong
+    veryStrong: Very Strong
+  errors:
+    required: Please fill out this field
+    minLength: 'This field must be at least {{length}} characters'
+    maxLength: 'This field cannot be more than {{length}} characters'
+    iranianPhone: 'Invalid phone number (example: 09123456789)'
+    passwordStrength: 'Password must include uppercase letters, numbers and special characters'
+    mismatch: Password and confirm password do not match
+    acceptTerms: Please agree to the terms and conditions
+  placeholders:
+    fullName: Enter your full name
+    phone: "09123456789"
+    city: Enter your city
+    password: Enter your password
+    confirmPassword: Re-enter your password
+  citySelector:
+    searchPlaceholder: "Search city..."
+    noResults: "No city found"
+    noCities: "No cities available"
+    resultsFound: "results found"

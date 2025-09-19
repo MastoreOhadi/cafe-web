@@ -1,20 +1,42 @@
 title: "کافه"
-register:
-  title: "ثبت نام"
-  subtitle: "حساب کاربری خود را ایجاد کنید"
-  username: "نام کاربری"
-  email: "ایمیل"
-  password: "رمز عبور"
-  confirmPassword: "تکرار رمز عبور"
-  submit: "ثبت نام"
-  language: "زبان"
-  theme: "تم"
-  light: "روشن"
-  dark: "تیره"
-  english: "انگلیسی"
-  persian: "فارسی"
-  arabic: "عربی"
-  testMessage: "این یک پیام تستی برای نمایش تغییر زبان است"
-  settings: "تنظیمات"
-  currentState: "وضعیت فعلی"
-  direction: "جهت متن"
+auth:
+  register:
+    title: ثبت نام
+    subtitle: حساب کاربری جدید ایجاد کنید
+    fullName: نام و نام خانوادگی
+    phone: شماره تلفن
+    city: شهر
+    password: رمز عبور
+    confirmPassword: تأیید رمز عبور
+    acceptTerms: با <0>شرایط و قوانین</0> و <1>حریم خصوصی</1> موافقم
+    button: ثبت نام
+    loading: در حال ثبت نام...
+    success: ثبت نام با موفقیت انجام شد!
+    error: خطایی در ثبت نام رخ داده است
+    alreadyHaveAccount: قبلاً حساب کاربری دارید؟ <0>وارد شوید</0>
+    footer: با ثبت نام، شما عضوی از خانواده کافه ما می‌شوید
+  passwordStrength:
+    veryWeak: خیلی ضعیف
+    weak: ضعیف
+    medium: متوسط
+    strong: قوی
+    veryStrong: خیلی قوی
+  errors:
+    required: لطفاً این فیلد را پر کنید
+    minLength: 'این فیلد باید حداقل {{length}} کاراکتر باشد'
+    maxLength: 'این فیلد نمی‌تواند بیشتر از {{length}} کاراکتر باشد'
+    iranianPhone: 'شماره تلفن معتبر نیست (مثال: 09123456789)'
+    passwordStrength: رمز عبور باید شامل حروف بزرگ، اعداد و کاراکترهای خاص باشد
+    mismatch: رمز عبور و تأیید رمز عبور مطابقت ندارند
+    acceptTerms: لطفاً با شرایط و قوانین موافقت کنید
+  placeholders:
+    fullName: نام و نام خانوادگی خود را وارد کنید
+    phone: "09123456789"
+    city: شهر خود را وارد کنید
+    password: رمز عبور خود را وارد کنید
+    confirmPassword: رمز عبور را مجدداً وارد کنید
+  citySelector:
+    searchPlaceholder: "جستجوی شهر..."
+    noResults: "هیچ شهری یافت نشد"
+    noCities: "هیچ شهری موجود نیست"
+    resultsFound: "نتیجه یافت شد"
