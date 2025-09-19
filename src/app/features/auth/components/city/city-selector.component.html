@@ -1,0 +1,87 @@
+<div class="relative w-full" #dropdown>
+  <div
+    class="w-full px-4 py-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-xl cursor-pointer flex items-center justify-between transition-colors duration-200"
+    (click)="toggleDropdown()"
+    [class.ring-2]="isOpen()"
+    [class.ring-amber-400]="isOpen()"
+  >
+    <span class="text-gray-900 dark:text-white">
+        {{ selectedCity() ? selectedCity()!.name : ('auth.placeholders.city' | translate) }}
+    </span>
+
+    <div class="flex items-center gap-2">
+      @if (selectedCity()) {
+        <button
+          type="button"
+          class="text-gray-400 hover:text-red-500 transition-colors"
+          (click)="clearSelection(); $event.stopPropagation()"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      }
+
+      <svg
+        class="w-4 h-4 text-gray-400 transition-transform duration-200"
+        [class.rotate-180]="isOpen()"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Dropdown menu -->
+  @if (isOpen()) {
+    <div class="absolute z-50 w-full mt-1 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-xl shadow-lg overflow-hidden">
+      <!-- Search input -->
+      <div class="p-2 border-b border-gray-200 dark:border-gray-600">
+        <input
+          #searchInput
+          type="text"
+          [formControl]="searchControl"
+          [placeholder]="'auth.citySelector.searchPlaceholder' | translate"
+          class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-600 border border-gray-200 dark:border-gray-500 rounded-lg focus:ring-2 focus:ring-amber-400 focus:border-transparent text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+        />
+      </div>
+
+      <!-- Cities list -->
+      <div class="max-h-60 overflow-y-auto">
+        @if (filteredCities().length === 0) {
+          <div class="px-4 py-3 text-center text-gray-500 dark:text-gray-400">
+            {{ searchControl.value ? ('auth.citySelector.noResults' | translate) : ('auth.citySelector.noCities' | translate) }}
+          </div>
+        } @else {
+          @for (city of filteredCities(); track city.id) {
+            <button
+              type="button"
+              class="w-full px-4 py-3 text-left hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors duration-150"
+              [class.bg-amber-50]="selectedCity()?.id === city.id"
+              [class.dark:bg-amber-900/20]="selectedCity()?.id === city.id"
+              (click)="selectCity(city)"
+            >
+              <div class="flex items-center justify-between">
+                <span class="text-gray-900 dark:text-white">{{ city.name }}</span>
+                @if (selectedCity()?.id === city.id) {
+                  <svg class="w-5 h-5 text-amber-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                }
+              </div>
+            </button>
+          }
+        }
+      </div>
+
+      <!-- Results count -->
+      @if (searchControl.value && filteredCities().length > 0) {
+        <div class="px-4 py-2 text-xs text-gray-500 dark:text-gray-400 border-t border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-600">
+          {{ filteredCities().length }} {{ 'auth.citySelector.resultsFound' | translate }}
+        </div>
+      }
+    </div>
+  }
+</div>
