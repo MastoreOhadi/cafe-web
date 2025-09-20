@@ -46,9 +46,7 @@ import * as settingsActions from '../../../store/settings/settings.actions';
 export class ThemeSwitcherComponent {
   private store = inject(Store);
 
-  // Signal از store
   theme = toSignal(this.store.select(selectTheme), { initialValue: 'light' });
-
   ariaLabel = computed(() =>
     this.theme() === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'
   );
