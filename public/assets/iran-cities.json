@@ -1,34 +1,34 @@
 {
   "1": {
-    "province": "تهران",
+    "province": { "fa": "تهران", "en": "Tehran" },
     "city": {
-      "10": {"name": "تهران"},
-      "11": {"name": "اسلام آباد"},
-      "12": {"name": "نیاوران"}
+      "10": { "name": { "fa": "تهران", "en": "Tehran" } },
+      "11": { "name": { "fa": "اسلام آباد", "en": "Eslam Abad" } },
+      "12": { "name": { "fa": "نیاوران", "en": "Niavaran" } }
     }
   },
   "2": {
-    "province": "اصفهان",
+    "province": { "fa": "اصفهان", "en": "Isfahan" },
     "city": {
-      "20": {"name": "اصفهان"},
-      "21": {"name": "کاشان"},
-      "22": {"name": "نطنز"}
+      "20": { "name": { "fa": "اصفهان", "en": "Isfahan" } },
+      "21": { "name": { "fa": "کاشان", "en": "Kashan" } },
+      "22": { "name": { "fa": "نطنز", "en": "Natanz" } }
     }
   },
   "3": {
-    "province": "خراسان رضوی",
+    "province": { "fa": "خراسان رضوی", "en": "Khorasan Razavi" },
     "city": {
-      "30": {"name": "مشهد"},
-      "31": {"name": "نیشابور"},
-      "32": {"name": "سبزوار"}
+      "30": { "name": { "fa": "مشهد", "en": "Mashhad" } },
+      "31": { "name": { "fa": "نیشابور", "en": "Neyshabur" } },
+      "32": { "name": { "fa": "سبزوار", "en": "Sabzevar" } }
     }
   },
   "4": {
-    "province": "فارس",
+    "province": { "fa": "فارس", "en": "Fars" },
     "city": {
-      "40": {"name": "شیراز"},
-      "41": {"name": "کازرون"},
-      "42": {"name": "مرودشت"}
+      "40": { "name": { "fa": "شیراز", "en": "Shiraz" } },
+      "41": { "name": { "fa": "کازرون", "en": "Kazerun" } },
+      "42": { "name": { "fa": "مرودشت", "en": "Marvdasht" } }
     }
   }
 }
