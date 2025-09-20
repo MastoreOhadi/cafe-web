@@ -7,3 +7,14 @@ export interface RegisterData {
    province: string;
    city: string;
 }
+
+export interface City {
+  id: number;
+  name: { fa: string; en: string; ar: string };
+  provinceId: number;
+}
+
+export interface CityValue {
+  cityId: number;
+  provinceId: number;
+}
