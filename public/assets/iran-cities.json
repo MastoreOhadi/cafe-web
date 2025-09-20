@@ -1,34 +1,58 @@
 {
   "1": {
-    "province": { "fa": "تهران", "en": "Tehran" },
+    "province": { "fa": "تهران", "en": "Tehran", "ar": "طهران" },
     "city": {
-      "10": { "name": { "fa": "تهران", "en": "Tehran" } },
-      "11": { "name": { "fa": "اسلام آباد", "en": "Eslam Abad" } },
-      "12": { "name": { "fa": "نیاوران", "en": "Niavaran" } }
+      "10": { "name": { "fa": "تهران", "en": "Tehran", "ar": "طهران" } },
+      "11": { "name": { "fa": "اسلام آباد", "en": "Eslam Abad", "ar": "اسلام آباد" } },
+      "12": { "name": { "fa": "نیاوران", "en": "Niavaran", "ar": "نياوران" } }
     }
   },
   "2": {
-    "province": { "fa": "اصفهان", "en": "Isfahan" },
+    "province": { "fa": "اصفهان", "en": "Isfahan", "ar": "أصفهان" },
     "city": {
-      "20": { "name": { "fa": "اصفهان", "en": "Isfahan" } },
-      "21": { "name": { "fa": "کاشان", "en": "Kashan" } },
-      "22": { "name": { "fa": "نطنز", "en": "Natanz" } }
+      "20": { "name": { "fa": "اصفهان", "en": "Isfahan", "ar": "أصفهان" } },
+      "21": { "name": { "fa": "کاشان", "en": "Kashan", "ar": "كاشان" } },
+      "22": { "name": { "fa": "نطنز", "en": "Natanz", "ar": "نطنز" } }
     }
   },
   "3": {
-    "province": { "fa": "خراسان رضوی", "en": "Khorasan Razavi" },
+    "province": { "fa": "خراسان رضوی", "en": "Khorasan Razavi", "ar": "خراسان رضوي" },
     "city": {
-      "30": { "name": { "fa": "مشهد", "en": "Mashhad" } },
-      "31": { "name": { "fa": "نیشابور", "en": "Neyshabur" } },
-      "32": { "name": { "fa": "سبزوار", "en": "Sabzevar" } }
+      "30": { "name": { "fa": "مشهد", "en": "Mashhad", "ar": "مشهد" } },
+      "31": { "name": { "fa": "نیشابور", "en": "Neyshabur", "ar": "نيشابور" } },
+      "32": { "name": { "fa": "سبزوار", "en": "Sabzevar", "ar": "سبزوار" } }
     }
   },
   "4": {
-    "province": { "fa": "فارس", "en": "Fars" },
+    "province": { "fa": "فارس", "en": "Fars", "ar": "فارس" },
     "city": {
-      "40": { "name": { "fa": "شیراز", "en": "Shiraz" } },
-      "41": { "name": { "fa": "کازرون", "en": "Kazerun" } },
-      "42": { "name": { "fa": "مرودشت", "en": "Marvdasht" } }
+      "40": { "name": { "fa": "شیراز", "en": "Shiraz", "ar": "شيراز" } },
+      "41": { "name": { "fa": "کازرون", "en": "Kazerun", "ar": "كازرون" } },
+      "42": { "name": { "fa": "مرودشت", "en": "Marvdasht", "ar": "مرودشت" } }
+    }
+  },
+  "5": {
+    "province": { "fa": "خوزستان", "en": "Khuzestan", "ar": "خوزستان" },
+    "city": {
+      "50": { "name": { "fa": "اهواز", "en": "Ahvaz", "ar": "اهواز" } },
+      "51": { "name": { "fa": "دزفول", "en": "Dezful", "ar": "دزفول" } },
+      "52": { "name": { "fa": "خرمشهر", "en": "Khorramshahr", "ar": "خرمشهر" } }
+    }
+  },
+  "6": {
+    "province": { "fa": "گیلان", "en": "Gilan", "ar": "جيلان" },
+    "city": {
+      "60": { "name": { "fa": "رشت", "en": "Rasht", "ar": "رشت" } },
+      "61": { "name": { "fa": "انزلی", "en": "Anzali", "ar": "أنزلي" } },
+      "62": { "name": { "fa": "لاهیجان", "en": "Lahijan", "ar": "لاهيجان" } }
+    }
+  },
+  "7": {
+    "province": { "fa": "مازندران", "en": "Mazandaran", "ar": "مازندران" },
+    "city": {
+      "70": { "name": { "fa": "ساری", "en": "Sari", "ar": "ساري" } },
+      "71": { "name": { "fa": "بابل", "en": "Babol", "ar": "بابل" } },
+      "72": { "name": { "fa": "بابلسر", "en": "Babolsar", "ar": "بابلسر" } }
     }
   }
 }

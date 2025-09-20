@@ -1,20 +1,42 @@
 title: "مقهى"
-register:
-  title: "تسجيل"
-  subtitle: "أنشئ حسابك"
-  username: "اسم المستخدم"
-  email: "البريد الإلكتروني"
-  password: "كلمة المرور"
-  confirmPassword: "تأكيد كلمة المرور"
-  submit: "تسجيل"
-  language: "اللغة"
-  theme: "المظهر"
-  light: "فاتح"
-  dark: "داكن"
-  english: "الإنجليزية"
-  persian: "الفارسية"
-  arabic: "العربية"
-  testMessage: "هذه رسالة تجريبية لإظهار تبديل اللغة"
-  settings: "الإعدادات"
-  currentState: "الحالة الحالية"
-  direction: "اتجاه النص"
+auth:
+  register:
+    title: تسجيل
+    subtitle: أنشئ حساب مستخدم جديد
+    fullName: الاسم الكامل
+    phone: رقم الهاتف
+    city: المدينة
+    password: كلمة المرور
+    confirmPassword: تأكيد كلمة المرور
+    acceptTerms: أوافق على <0>الشروط والأحكام</0> و <1>سياسة الخصوصية</1>
+    button: تسجيل
+    loading: جاري التسجيل...
+    success: تم التسجيل بنجاح!
+    error: حدث خطأ أثناء التسجيل
+    alreadyHaveAccount: هل لديك حساب مسبقاً؟ <0>تسجيل الدخول</0>
+    footer: بتسجيلك، تصبح جزءًا من عائلة مقهانا
+  passwordStrength:
+    veryWeak: ضعيفة جداً
+    weak: ضعيفة
+    medium: متوسطة
+    strong: قوية
+    veryStrong: قوية جداً
+  errors:
+    required: الرجاء ملء هذا الحقل
+    minLength: 'يجب أن يحتوي هذا الحقل على {{length}} أحرف على الأقل'
+    maxLength: 'لا يمكن أن يحتوي هذا الحقل على أكثر من {{length}} حرف'
+    iranianPhone: 'رقم الهاتف غير صالح (مثال: 09123456789)'
+    passwordStrength: يجب أن تحتوي كلمة المرور على أحرف كبيرة وأرقام ورموز خاصة
+    mismatch: كلمة المرور وتأكيد كلمة المرور غير متطابقين
+    acceptTerms: الرجاء الموافقة على الشروط والأحكام
+  placeholders:
+    fullName: أدخل اسمك الكامل
+    phone: "09123456789"
+    city: أدخل مدينتك
+    password: أدخل كلمة المرور
+    confirmPassword: أعد إدخال كلمة المرور
+  citySelector:
+    searchPlaceholder: "ابحث عن المدينة..."
+    noResults: "لم يتم العثور على أي مدينة"
+    noCities: "لا توجد مدن متاحة"
+    resultsFound: "نتيجة تم العثور عليها"
