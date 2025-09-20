@@ -1,18 +1,14 @@
 import { Component, inject, signal, computed } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { map } from 'rxjs/operators';
 import { selectLanguage } from '../../../store/settings/settings.selectors';
 import { AppTranslateService } from '../../services/translate/translate.service';
 
 @Component({
   selector: 'app-language-switcher',
   standalone: true,
-  imports: [CommonModule],
   template: `
     <div class="relative inline-block text-left">
-      <!-- دکمه اصلی -->
       <button
         (click)="toggleDropdown()"
         class="inline-flex justify-between items-center w-32 px-3 py-2 bg-white border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
@@ -35,7 +31,6 @@ import { AppTranslateService } from '../../services/translate/translate.service'
         </svg>
       </button>
 
-      <!-- لیست کشویی -->
       @if (open()) {
         <div
           class="absolute z-10 mt-2 w-32 bg-white border border-gray-200 rounded-lg shadow-lg"
@@ -72,12 +67,10 @@ export class LanguageSwitcherComponent {
     { code: 'ar', name: 'العربية', flag: '🇸🇦' },
   ];
 
-  // استفاده از toSignal برای تبدیل observable به signal
   currentLanguage = toSignal(this.store.select(selectLanguage), {
     initialValue: 'fa'
   });
 
-  // محاسبه زبان انتخاب شده بر اساس currentLanguage
   selectedLanguage = computed(() => {
     const code = this.currentLanguage();
     const found = this.languages.find(l => l.code === code);
