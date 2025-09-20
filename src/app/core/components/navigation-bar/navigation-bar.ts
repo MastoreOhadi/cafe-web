@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { ThemeSwitcherComponent } from '../theme-switcher/theme-switcher';
 import { LanguageSwitcherComponent } from '../language-switcher/language-switcher';
 
 @Component({
   selector: 'app-navigation-bar',
   standalone: true,
-  imports: [CommonModule, ThemeSwitcherComponent, LanguageSwitcherComponent],
+  imports: [ThemeSwitcherComponent, LanguageSwitcherComponent],
   template: `
     <!-- Navigation Bar -->
     <nav class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200/50 shadow-sm">
