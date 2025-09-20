@@ -1,3 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 @use "tailwindcss";
-@config "../tailwind.config.ts";
+// @config "../tailwind.config.ts";
+
+@custom-variant dark (&:is(.dark *));
