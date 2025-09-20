@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   selector: 'app-cafe-page',
   imports: [CommonModule],
   templateUrl: './cafe-page.html',
-  styleUrl: './cafe-page.scss'
+  styleUrl: './cafe-page.css'
 })
 export class CafePage {
   activeTab: string = 'menu';
