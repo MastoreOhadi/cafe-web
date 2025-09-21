@@ -11,6 +11,12 @@ export interface RegisterData {
    password: string;
 }
 
+export interface LoginData {
+   entity: string;
+   password: string;
+   rememberMe: boolean;
+}
+
 @Injectable({
    providedIn: 'root',
 })
