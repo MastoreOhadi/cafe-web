@@ -1,42 +1,52 @@
-title: "مقهى"
+title: "المقهى"
 auth:
   register:
-    title: تسجيل
-    subtitle: أنشئ حساب مستخدم جديد
-    fullName: الاسم الكامل
-    phone: رقم الهاتف
-    city: المدينة
-    password: كلمة المرور
-    confirmPassword: تأكيد كلمة المرور
-    acceptTerms: أوافق على <0>الشروط والأحكام</0> و <1>سياسة الخصوصية</1>
-    button: تسجيل
-    loading: جاري التسجيل...
-    success: تم التسجيل بنجاح!
-    error: حدث خطأ أثناء التسجيل
-    alreadyHaveAccount: هل لديك حساب مسبقاً؟ <0>تسجيل الدخول</0>
-    footer: بتسجيلك، تصبح جزءًا من عائلة مقهانا
+    title: "تسجيل حساب"
+    subtitle: "أنشئ حسابًا جديدًا"
+    fullName: "الاسم الكامل"
+    phone: "رقم الهاتف"
+    city: "المدينة"
+    password: "كلمة المرور"
+    confirmPassword: "تأكيد كلمة المرور"
+    acceptTerms: "أوافق على <0>الشروط والأحكام</0> و <1>سياسة الخصوصية</1>"
+    button: "تسجيل"
+    loading: "جاري التسجيل..."
+    success: "تم التسجيل بنجاح!"
+    error: "حدث خطأ أثناء التسجيل"
+    alreadyHaveAccount: "لديك حساب بالفعل؟ <0>تسجيل الدخول</0>"
+    footer: "بتسجيلك، تصبح جزءًا من عائلة مقهانا"
+
+  login:
+    title: "تسجيل الدخول إلى حسابك"
+    subtitle: "يرجى إدخال بيانات حسابك"
+    entity: "اسم المستخدم أو رقم الهاتف"
+    password: "كلمة المرور"
+    rememberMe: "تذكرني"
+    forgotPassword: "هل نسيت كلمة المرور؟"
+    button: "تسجيل الدخول"
+    loading: "جاري تسجيل الدخول..."
+    noAccount: "ليس لديك حساب؟ <a class='text-amber-600 hover:text-amber-700 dark:text-amber-400 dark:hover:text-amber-300 font-semibold transition-colors duration-200' href='/signup'>سجّل الآن</a>"
+    footer: "بتسجيل الدخول، فإنك توافق على الشروط والأحكام"
+    error: "فشل تسجيل الدخول. يرجى المحاولة مرة أخرى."
+
   passwordStrength:
-    veryWeak: ضعيفة جداً
-    weak: ضعيفة
-    medium: متوسطة
-    strong: قوية
-    veryStrong: قوية جداً
+    veryWeak: "ضعيف جدًا"
+    weak: "ضعيف"
+    medium: "متوسط"
+    strong: "قوي"
+    veryStrong: "قوي جدًا"
+
   errors:
-    required: الرجاء ملء هذا الحقل
-    minLength: 'يجب أن يحتوي هذا الحقل على {{length}} أحرف على الأقل'
-    maxLength: 'لا يمكن أن يحتوي هذا الحقل على أكثر من {{length}} حرف'
-    iranianPhone: 'رقم الهاتف غير صالح (مثال: 09123456789)'
-    passwordStrength: يجب أن تحتوي كلمة المرور على أحرف كبيرة وأرقام ورموز خاصة
-    mismatch: كلمة المرور وتأكيد كلمة المرور غير متطابقين
-    acceptTerms: الرجاء الموافقة على الشروط والأحكام
+    required: "هذا الحقل مطلوب"
+    minLength: "يجب أن يكون هذا الحقل على الأقل {{length}} أحرف"
+    maxLength: "لا يمكن أن يتجاوز هذا الحقل {{length}} أحرف"
+    iranianPhone: "رقم الهاتف غير صالح (مثال: 09123456789)"
+    passwordStrength: "يجب أن تحتوي كلمة المرور على أحرف كبيرة وأرقام ورموز خاصة"
+    mismatch: "كلمة المرور وتأكيدها غير متطابقين"
+    acceptTerms: "يرجى الموافقة على الشروط والأحكام"
+
   placeholders:
-    fullName: أدخل اسمك الكامل
+    entity: "أدخل اسم المستخدم أو رقم الهاتف"
+    fullName: "أدخل اسمك الكامل"
     phone: "09123456789"
-    city: أدخل مدينتك
-    password: أدخل كلمة المرور
-    confirmPassword: أعد إدخال كلمة المرور
-  citySelector:
-    searchPlaceholder: "ابحث عن المدينة..."
-    noResults: "لم يتم العثور على أي مدينة"
-    noCities: "لا توجد مدن متاحة"
-    resultsFound: "نتيجة تم العثور عليها"
+    city: "أدخل مدينتك"

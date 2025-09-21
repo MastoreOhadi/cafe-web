@@ -1,42 +1,60 @@
-title: "Coffee"
+title: "Cafe"
 auth:
   register:
-    title: Register
-    subtitle: Create a new account
-    fullName: Full Name
-    phone: Phone Number
-    city: City
-    password: Password
-    confirmPassword: Confirm Password
-    acceptTerms: I agree to the <0>Terms and Conditions</0> and <1>Privacy Policy</1>
-    button: Register
-    loading: Registering...
-    success: Registration completed successfully!
-    error: An error occurred during registration
-    alreadyHaveAccount: Already have an account? <0>Sign in</0>
-    footer: 'By registering, you become part of our cafe family'
+    title: "Sign Up"
+    subtitle: "Create a new account"
+    fullName: "Full Name"
+    phone: "Phone Number"
+    city: "City"
+    password: "Password"
+    confirmPassword: "Confirm Password"
+    acceptTerms: "I agree to the <0>Terms & Conditions</0> and <1>Privacy Policy</1>"
+    button: "Register"
+    loading: "Registering..."
+    success: "Registration successful!"
+    error: "An error occurred during registration"
+    alreadyHaveAccount: "Already have an account? <0>Login</0>"
+    footer: "By signing up, you become part of our cafe family"
+
+  login:
+    title: "Login to Your Account"
+    subtitle: "Please enter your account details"
+    entity: "Username or Phone Number"
+    password: "Password"
+    rememberMe: "Remember Me"
+    forgotPassword: "Forgot your password?"
+    button: "Login"
+    loading: "Logging in..."
+    noAccount: "Don’t have an account? <a class='text-amber-600 hover:text-amber-700 dark:text-amber-400 dark:hover:text-amber-300 font-semibold transition-colors duration-200' href='/signup'>Sign Up</a>"
+    footer: "By logging in, you agree to the Terms & Conditions"
+    error: "Login failed. Please try again."
+
   passwordStrength:
-    veryWeak: Very Weak
-    weak: Weak
-    medium: Medium
-    strong: Strong
-    veryStrong: Very Strong
+    veryWeak: "Very Weak"
+    weak: "Weak"
+    medium: "Medium"
+    strong: "Strong"
+    veryStrong: "Very Strong"
+
   errors:
-    required: Please fill out this field
-    minLength: 'This field must be at least {{length}} characters'
-    maxLength: 'This field cannot be more than {{length}} characters'
-    iranianPhone: 'Invalid phone number (example: 09123456789)'
-    passwordStrength: 'Password must include uppercase letters, numbers and special characters'
-    mismatch: Password and confirm password do not match
-    acceptTerms: Please agree to the terms and conditions
+    required: "This field is required"
+    minLength: "This field must be at least {{length}} characters"
+    maxLength: "This field cannot exceed {{length}} characters"
+    iranianPhone: "Invalid phone number (e.g., 09123456789)"
+    passwordStrength: "Password must include uppercase letters, numbers, and special characters"
+    mismatch: "Password and confirmation do not match"
+    acceptTerms: "Please accept the Terms & Conditions"
+
   placeholders:
-    fullName: Enter your full name
+    entity: "Enter your username or phone number"
+    fullName: "Enter your full name"
     phone: "09123456789"
-    city: Enter your city
-    password: Enter your password
-    confirmPassword: Re-enter your password
+    city: "Enter your city"
+    password: "Enter your password"
+    confirmPassword: "Re-enter your password"
+
   citySelector:
     searchPlaceholder: "Search city..."
-    noResults: "No city found"
+    noResults: "No cities found"
     noCities: "No cities available"
-    resultsFound: "results found"
+    resultsFound: "result found"

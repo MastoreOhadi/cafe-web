@@ -25,17 +25,12 @@ auth:
     forgotPassword: "رمز عبور را فراموش کرده‌اید؟"
     button: "ورود"
     loading: "در حال ورود..."
-    noAccount: "حساب کاربری ندارید؟ <a class='text-amber-600 hover:text-amber-700 dark:text-amber-400 dark:hover:text-amber-300 font-semibold transition-colors duration-200' href='/register'>ثبت نام کنید</a>"
+    noAccount: "حساب کاربری ندارید؟ <a class='text-amber-600 hover:text-amber-700 dark:text-amber-400 dark:hover:text-amber-300 font-semibold transition-colors duration-200' href='/signup'>ثبت نام کنید</a>"
     footer: "با ورود به حساب، شرایط و قوانین را پذیرفته‌اید"
     error: "خطا در ورود. لطفا مجددا تلاش کنید."
 
-  placeholders:
-    entity: "نام کاربری یا شماره تلفن خود را وارد کنید"
-    password: "رمز عبور خود را وارد کنید"
-
   errors:
     required: "این فیلد اجباری است"
-
   passwordStrength:
     veryWeak: خیلی ضعیف
     weak: ضعیف
@@ -51,6 +46,7 @@ auth:
     mismatch: رمز عبور و تأیید رمز عبور مطابقت ندارند
     acceptTerms: لطفاً با شرایط و قوانین موافقت کنید
   placeholders:
+    entity: "نام کاربری یا شماره تلفن خود را وارد کنید"
     fullName: نام و نام خانوادگی خود را وارد کنید
     phone: "09123456789"
     city: شهر خود را وارد کنید
