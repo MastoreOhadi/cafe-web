@@ -19,6 +19,23 @@ export class SettingsEffects implements OnInitEffects {
       this.translate.addLangs(['en', 'fa', 'ar']);
    }
 
+   private detectSystemTheme(): 'light' | 'dark' {
+      if (typeof window === 'undefined') {
+         return 'light';
+      }
+
+      try {
+         const prefersDark = window.matchMedia
+            ? window.matchMedia('(prefers-color-scheme: dark)').matches
+            : false;
+
+         return prefersDark ? 'dark' : 'light';
+      } catch (error) {
+         console.error('Error detecting system theme:', error);
+         return 'light';
+      }
+   }
+
    loadSettings$ = createEffect(() =>
       this.actions$.pipe(
          ofType(settingsActions.loadSettings),
@@ -26,16 +43,16 @@ export class SettingsEffects implements OnInitEffects {
          try {
             if (typeof localStorage === 'undefined') {
                return of(
-               settingsActions.setTheme({ theme: initialState.theme }),
-               settingsActions.setLanguage({ language: initialState.language })
+                  settingsActions.setTheme({ theme: this.detectSystemTheme() }),
+                  settingsActions.setLanguage({ language: initialState.language })
                );
             }
 
             const json = localStorage.getItem('settings');
             if (!json) {
                return of(
-               settingsActions.setTheme({ theme: initialState.theme }),
-               settingsActions.setLanguage({ language: initialState.language })
+                  settingsActions.setTheme({ theme: this.detectSystemTheme() }),
+                  settingsActions.setLanguage({ language: initialState.language })
                );
             }
 
