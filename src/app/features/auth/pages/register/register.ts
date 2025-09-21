@@ -1,5 +1,5 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgClass } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { debounceTime, distinctUntilChanged, finalize } from 'rxjs';
@@ -15,7 +15,7 @@ import { ZardButtonComponent } from '@shared/ui/button/button.component';
 @Component({
   selector: 'app-register',
   imports: [
-   CommonModule, ReactiveFormsModule, TranslateModule,
+   NgClass, ReactiveFormsModule, TranslateModule,
    NavigationBarComponent, CitySelectorComponent,
    ZardButtonComponent],
   templateUrl: './register.html',
