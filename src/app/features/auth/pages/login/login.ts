@@ -1,88 +1,79 @@
-import { Component, inject, OnInit, signal } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl, ValidationErrors } from "@angular/forms";
-import { catchError, finalize, of } from "rxjs";
-import { RegisterData } from "../../models";
-import { Router } from "@angular/router";
-import { AuthService } from "../../../../core/services/auth/auth.service";
-import { LanguageSwitcherComponent } from "../../../../core/components/language-switcher/language-switcher";
-import { NavigationBarComponent } from "../../../../core/components/navigation-bar/navigation-bar";
-import { rxResource } from "@angular/core/rxjs-interop";
+import { Component, inject, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { finalize } from 'rxjs';
+
+import { NavigationBarComponent } from '../../../../core/components/navigation-bar/navigation-bar';
+import { AuthService, LoginData } from '../../../../core/services/auth/auth.service';
+import { ZardButtonComponent } from '@shared/ui/button/button.component';
 
 @Component({
-	selector: 'app-test',
-	standalone: true,
-	imports: [CommonModule, ReactiveFormsModule, NavigationBarComponent],
-	templateUrl: './login.html',
+  selector: 'app-login',
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    TranslateModule,
+    NavigationBarComponent,
+    ZardButtonComponent,
+    RouterLink
+  ],
+  templateUrl: './login.html',
+  styleUrl: './login.css'
 })
 export class Login {
-	isLoading = false;
-	errorMessage: string | null = null;
-	successMessage: string | null = null;
-	isSubmitting = false;
+  private authService = inject(AuthService);
+  private fb = inject(FormBuilder);
+  private router = inject(Router);
+  private translate = inject(TranslateService);
 
-	private fb = inject(FormBuilder);
-	private authService = inject(AuthService);
-	private router = inject(Router);
+  loginForm: FormGroup = this.fb.group({
+    entity: ['', Validators.required],
+    password: ['', Validators.required],
+    rememberMe: [false]
+  });
 
-	showPassword = false;
-	showConfirmPassword = false;
+  // Signals for UI state
+  showPassword = signal(false);
+  isSubmitting = signal(false);
+  errorMessage = signal<string | null>(null);
 
-	signupForm: FormGroup = this.fb.group({
-		phone: ["", [Validators.required, Validators.pattern(/^\+?[1-9]\d{1,14}$/)]],
-		password: ["", [Validators.required, Validators.minLength(8), Validators.maxLength(72)]],
-	});
+  togglePassword(): void {
+    this.showPassword.update(v => !v);
+  }
 
-	togglePassword() {
-		this.showPassword = !this.showPassword;
-	}
+  private markAllTouched(): void {
+    Object.values(this.loginForm.controls).forEach(control => {
+      control.markAsTouched();
+    });
+  }
 
-	onSubmit() {
-		if (this.signupForm.valid) {
-			this.isSubmitting = true;
-			this.isLoading = true;
-			this.errorMessage = null;
-			this.successMessage = null;
+  onSubmit(): void {
+    if (this.loginForm.invalid) {
+      this.markAllTouched();
+      return;
+    }
 
-			const formData = { ...this.signupForm.value };
-			delete formData.confirmPassword;
+    this.isSubmitting.set(true);
+    this.errorMessage.set(null);
 
-			const payload: RegisterData = {
-				email: formData.email,
-				phone: formData.phone,
-				username: formData.username,
-				password: formData.password,
-				full_name: formData.fullName,
-				province: formData.province,
-				city: formData.city,
-			};
+    const { entity, password, rememberMe } = this.loginForm.value;
+    const payload: LoginData = {
+      entity,
+      password,
+	  rememberMe
+    };
 
-			this.authService
-				.login(payload)
-				.pipe(
-					catchError((error) => {
-						console.error("Registration error:", error);
-						this.errorMessage = error.error?.message || "خطا در ثبت نام. لطفاً مجدداً تلاش کنید.";
-						return of(null);
-					}),
-					finalize(() => {
-						this.isLoading = false;
-						this.isSubmitting = false;
-					})
-				)
-				.subscribe((response: any) => {
-					if (response) {
-						this.successMessage = "ثبت نام با موفقیت انجام شد. در حال انتقال به صفحه ورود...";
-						setTimeout(() => {
-							this.router.navigate(["/signup"]);
-						}, 3000);
-					}
-				});
-
-		} else {
-			Object.keys(this.signupForm.controls).forEach(key => {
-				this.signupForm.get(key)?.markAsTouched();
-			});
-		}
-	}
+    this.authService.login(payload).pipe(
+      finalize(() => this.isSubmitting.set(false))
+    ).subscribe({
+      next: () => {
+        this.router.navigate(['/dashboard']); // یا مسیر مورد نظر بعد از لاگین
+      },
+      error: (error) => {
+        this.errorMessage.set(error.message || this.translate.instant('auth.login.error'));
+      }
+    });
+  }
 }
