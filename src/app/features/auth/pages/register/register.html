@@ -39,11 +39,19 @@
                 [class.border-red-500]="registerForm.get('fullName')?.touched && registerForm.get('fullName')?.invalid"
               />
             </div>
-            <div *ngIf="registerForm.get('fullName')?.touched && registerForm.get('fullName')?.invalid" class="text-red-500 text-xs">
-              <span *ngIf="registerForm.get('fullName')?.errors?.['required']">{{ 'auth.errors.required' | translate }}</span>
-              <span *ngIf="registerForm.get('fullName')?.errors?.['minlength']">{{ 'auth.errors.minLength' | translate:{length: 3} }}</span>
-              <span *ngIf="registerForm.get('fullName')?.errors?.['maxlength']">{{ 'auth.errors.maxLength' | translate:{length: 50} }}</span>
-            </div>
+            @if (registerForm.get('fullName')?.touched && registerForm.get('fullName')?.invalid) {
+              <div class="text-red-500 text-xs">
+                @if (registerForm.get('fullName')?.errors?.['required']) {
+                  <span>{{ 'auth.errors.required' | translate }}</span>
+                }
+                @if (registerForm.get('fullName')?.errors?.['minlength']) {
+                  <span>{{ 'auth.errors.minLength' | translate:{length: 3} }}</span>
+                }
+                @if (registerForm.get('fullName')?.errors?.['maxlength']) {
+                  <span>{{ 'auth.errors.maxLength' | translate:{length: 50} }}</span>
+                }
+              </div>
+            }
           </div>
 
           <!-- Phone Number -->
@@ -66,10 +74,16 @@
                 [class.border-red-500]="registerForm.get('phone')?.touched && registerForm.get('phone')?.invalid"
               />
             </div>
-            <div *ngIf="registerForm.get('phone')?.touched && registerForm.get('phone')?.invalid" class="text-red-500 text-xs">
-               <span *ngIf="registerForm.get('phone')?.errors?.['required']">{{ 'auth.errors.required' | translate }}</span>
-               <span *ngIf="registerForm.get('phone')?.errors?.['iranianPhone']">{{ 'auth.errors.iranianPhone' | translate }}</span>
-            </div>
+            @if (registerForm.get('phone')?.touched && registerForm.get('phone')?.invalid) {
+              <div class="text-red-500 text-xs">
+                @if (registerForm.get('phone')?.errors?.['required']) {
+                  <span>{{ 'auth.errors.required' | translate }}</span>
+                }
+                @if (registerForm.get('phone')?.errors?.['iranianPhone']) {
+                  <span>{{ 'auth.errors.iranianPhone' | translate }}</span>
+                }
+              </div>
+            }
           </div>
 
           <!-- City -->
@@ -77,11 +91,18 @@
             <label for="city" class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
               {{ 'auth.register.city' | translate }}
             </label>
-            <app-city-selector formControlName="city"></app-city-selector>
-            <div *ngIf="registerForm.get('city')?.touched && registerForm.get('city')?.invalid" class="text-red-500 text-xs">
-              <span *ngIf="registerForm.get('city')?.errors?.['required']">{{ 'auth.errors.required' | translate }}</span>
-              <span *ngIf="registerForm.get('city')?.errors?.['minlength']">{{ 'auth.errors.minLength' | translate:{length: 2} }}</span>
-            </div>
+            <app-city-selector
+              [class.border-red-500]="registerForm.get('fullName')?.touched && registerForm.get('fullName')?.invalid" formControlName="city"></app-city-selector>
+            @if (registerForm.get('city')?.touched && registerForm.get('city')?.invalid) {
+              <div class="text-red-500 text-xs">
+                @if (registerForm.get('city')?.errors?.['required']) {
+                  <span>{{ 'auth.errors.required' | translate }}</span>
+                }
+                @if (registerForm.get('city')?.errors?.['minlength']) {
+                  <span>{{ 'auth.errors.minLength' | translate:{length: 2} }}</span>
+                }
+              </div>
+            }
           </div>
 
           <!-- Password -->
@@ -108,37 +129,61 @@
                 (click)="togglePassword('password')"
                 class="absolute inset-y-0 left-0 pl-4 flex items-center text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors duration-200"
               >
-                <svg *ngIf="!showPassword()" class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                </svg>
-                <svg *ngIf="showPassword()" class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"></path>
-                </svg>
+                @if (!showPassword()) {
+                  <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z">
+                    </path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478
+                        0 8.268 2.943 9.542 7-1.274 4.057-5.064
+                        7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                    ></path>
+                  </svg>
+                } @else {
+                  <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478
+                            0-8.268-2.943-9.543-7a9.97 9.97 0
+                            011.563-3.029m5.858.908a3 3 0 114.243
+                            4.243M9.878 9.878l4.242 4.242M9.878
+                            9.878L3 3m6.878 6.878L21 21"></path>
+                  </svg>
+                }
               </button>
             </div>
-            <div *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid" class="text-red-500 text-xs">
-              <span *ngIf="registerForm.get('password')?.errors?.['required']">{{ 'auth.errors.required' | translate }}</span>
-              <span *ngIf="registerForm.get('password')?.errors?.['minlength']">{{ 'auth.errors.minLength' | translate:{length: 8} }}</span>
-              <span *ngIf="registerForm.get('password')?.errors?.['passwordStrength']">{{ 'auth.errors.passwordStrength' | translate }}</span>
-            </div>
-
-            <div *ngIf="registerForm.get('password')?.value" class="mt-2">
-              <div class="flex items-center gap-2">
-                <div class="flex-1 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-                  <div
-                    class="h-full transition-all duration-300"
-                    [ngClass]="{
-                      'bg-red-500': passwordStrength().score <= 1,
-                      'bg-blue-500': passwordStrength().score === 2,
-                      'bg-green-500': passwordStrength().score >= 3
-                    }"
-                    [style.width]="(passwordStrength().score * 25) + '%'"
-                  ></div>
-                </div>
-                <span class="text-xs text-gray-600 dark:text-gray-400">{{ passwordStrength().text }}</span>
+            @if (registerForm.get('password')?.touched && registerForm.get('password')?.invalid) {
+              <div class="text-red-500 text-xs">
+                @if (registerForm.get('password')?.errors?.['required']) {
+                  <span>{{ 'auth.errors.required' | translate }}</span>
+                }
+                @if (registerForm.get('password')?.errors?.['minlength']) {
+                  <span>{{ 'auth.errors.minLength' | translate:{length: 8} }}</span>
+                }
+                @if (registerForm.get('password')?.errors?.['passwordStrength']) {
+                  <span>{{ 'auth.errors.passwordStrength' | translate }}</span>
+                }
               </div>
-            </div>
+            }
+
+            @if (registerForm.get('password')?.value) {
+              <div class="mt-2">
+                <div class="flex items-center gap-2">
+                  <div class="flex-1 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                    <div
+                      class="h-full transition-all duration-300"
+                      [ngClass]="{
+                        'bg-red-500': passwordStrength().score <= 1,
+                        'bg-blue-500': passwordStrength().score === 2,
+                        'bg-green-500': passwordStrength().score >= 3
+                      }"
+                      [style.width]="(passwordStrength().score * 25) + '%'"
+                    ></div>
+                  </div>
+                  <span class="text-xs text-gray-600 dark:text-gray-400">{{ passwordStrength().text }}</span>
+                </div>
+              </div>
+            }
           </div>
 
           <!-- Confirm Password -->
@@ -169,9 +214,11 @@
                 </svg>
               </button>
             </div>
-            <div *ngIf="registerForm.get('confirmPassword')?.touched && registerForm.errors?.['mismatch']" class="text-red-500 text-xs">
-              {{ 'auth.errors.mismatch' | translate }}
-            </div>
+            @if (registerForm.get('confirmPassword')?.touched && registerForm.errors?.['mismatch']) {
+              <div class="text-red-500 text-xs">
+                {{ 'auth.errors.mismatch' | translate }}
+              </div>
+            }
           </div>
 
           <!-- Terms -->
@@ -186,46 +233,75 @@
               {{'auth.register.acceptTerms' | translate}}
             </label>
           </div>
-          <div *ngIf="registerForm.get('acceptTerms')?.touched && registerForm.get('acceptTerms')?.invalid" class="text-red-500 text-xs">
-            {{ 'auth.errors.acceptTerms' | translate }}
-          </div>
+          @if (registerForm.get('acceptTerms')?.touched && registerForm.get('acceptTerms')?.invalid) {
+            <div class="text-red-500 text-xs">
+              {{ 'auth.errors.acceptTerms' | translate }}
+            </div>
+          }
 
-          <!-- Register Button -->
           <button
             type="submit"
+            z-button zType="secondary"
             [disabled]="isSubmitting()"
-            class="w-full bg-gradient-to-r from-amber-500 to-yellow-600 text-white py-4 px-6 rounded-xl font-semibold hover:from-amber-600 hover:to-yellow-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+            class="w-full bg-gradient-to-r from-amber-500 to-yellow-600 text-white py-4 px-6 rounded-xl font-semibold hover:from-amber-600 hover:to-yellow-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
           >
-            <span *ngIf="!isSubmitting()" class="flex items-center justify-center gap-2">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
-              </svg>
-              {{ 'auth.register.button' | translate }}
-            </span>
-            <span *ngIf="isSubmitting()" class="flex items-center justify-center gap-2">
-              <svg class="animate-spin w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-              </svg>
-              {{ 'auth.register.loading' | translate }}
-            </span>
+            @if (!isSubmitting()) {
+              <span class="flex items-center justify-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
+                </svg>
+                {{ 'auth.register.button' | translate }}
+              </span>
+            } @else {
+              <span class="flex items-center justify-center gap-2">
+                <svg class="animate-spin w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10"
+                          stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0
+                          014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                {{ 'auth.register.loading' | translate }}
+              </span>
+            }
           </button>
 
           <!-- Error Message -->
-          <div *ngIf="errorMessage()" class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 px-4 py-3 rounded-xl text-center flex items-center gap-2">
-            <svg class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
-            </svg>
-            {{ errorMessage() }}
-          </div>
+          @if (errorMessage()) {
+            <div
+              class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800
+                    text-red-700 dark:text-red-400 px-4 py-3 rounded-xl text-center flex items-center gap-2">
+              <svg class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707
+                        7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293
+                        1.293a1 1 0 101.414 1.414L10 11.414l1.293
+                        1.293a1 1 0 001.414-1.414L11.414
+                        10l1.293-1.293a1 1 0
+                        00-1.414-1.414L10 8.586 8.707 7.293z"
+                      clip-rule="evenodd"></path>
+              </svg>
+              {{ errorMessage() }}
+            </div>
+          }
 
           <!-- Success Message -->
-          <div *ngIf="successMessage()" class="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 text-amber-700 dark:text-amber-400 px-4 py-3 rounded-xl text-center flex items-center gap-2">
-            <svg class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-            </svg>
-            {{ successMessage() }}
-          </div>
+          @if (successMessage()) {
+            <div
+              class="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800
+                    text-amber-700 dark:text-amber-400 px-4 py-3 rounded-xl text-center flex items-center gap-2">
+              <svg class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1
+                        1 0 00-1.414-1.414L9 10.586 7.707
+                        9.293a1 1 0 00-1.414 1.414l2 2a1
+                        1 0 001.414 0l4-4z"
+                      clip-rule="evenodd"></path>
+              </svg>
+              {{ successMessage() }}
+            </div>
+          }
         </form>
 
         <!-- Footer -->

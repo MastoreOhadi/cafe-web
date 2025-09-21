@@ -10,10 +10,14 @@ import { AuthService, RegisterData } from '../../../../core/services/auth/auth.s
 import { CustomValidators } from '../../../../core/validators/custom-validators';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { CitySelectorComponent } from '../../components/city/city-selector.component';
+import { ZardButtonComponent } from '@shared/ui/button/button.component';
 
 @Component({
   selector: 'app-register',
-  imports: [CommonModule, ReactiveFormsModule, TranslateModule, NavigationBarComponent, CitySelectorComponent],
+  imports: [
+   CommonModule, ReactiveFormsModule, TranslateModule,
+   NavigationBarComponent, CitySelectorComponent,
+   ZardButtonComponent],
   templateUrl: './register.html',
   styleUrl: './register.css'
 })
