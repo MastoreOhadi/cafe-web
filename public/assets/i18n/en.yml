@@ -48,7 +48,6 @@ auth:
   placeholders:
     entity: "Enter your username or phone number"
     fullName: "Enter your full name"
-    phone: "09123456789"
     city: "Enter your city"
     password: "Enter your password"
     confirmPassword: "Re-enter your password"
