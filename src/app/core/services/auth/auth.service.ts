@@ -4,18 +4,27 @@ import { ApiService } from '../api/api.service';
 import { catchError, Observable, of, switchMap, tap } from 'rxjs';
 
 export interface RegisterData {
-   name: string;
+   full_name: string;
    phone: string;
    city: string;
    province: string;
    password: string;
-}
+};
 
 export interface LoginData {
    entity: string;
    password: string;
    rememberMe: boolean;
-}
+};
+
+export interface PhoneVerificationData {
+   phone: string;
+   otp: string;
+};
+
+export interface ResendOtpData {
+   phone: string;
+};
 
 @Injectable({
    providedIn: 'root',
@@ -178,6 +187,37 @@ export class AuthService {
             tap(response => console.log('Register response:', response)),
             catchError(error => {
                console.error('Register error:', error);
+               throw error;
+            })
+         );
+      });
+   };
+
+   verifyPhone(verificationData: PhoneVerificationData): Observable<any> {
+      return this.withCsrfToken(token => {
+         return this.api.post('auth/verify-phone', verificationData, {
+            'X-Csrf-Token': token,
+         }).pipe(
+            tap((response: any) => {
+               console.log('Verify phone response:', response)
+               this.setTokens(response.access_token, response.refresh_token);
+            }),
+            catchError(error => {
+               console.error('Verify phone error:', error);
+               throw error;
+            })
+         );
+      });
+   };
+
+   resendPhoneOtp(resendData: ResendOtpData): Observable<any> {
+      return this.withCsrfToken(token => {
+         return this.api.post('auth/resend-otp', resendData, {
+            'X-Csrf-Token': token,
+         }).pipe(
+            tap(response => console.log('Resend OTP response:', response)),
+            catchError(error => {
+               console.error('Resend OTP error:', error);
                throw error;
             })
          );
