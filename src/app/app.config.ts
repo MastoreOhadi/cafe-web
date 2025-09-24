@@ -11,6 +11,8 @@ import { provideStore } from '@ngrx/store';
 import { settingsReducer } from './store/settings/settings.reducer';
 import { SettingsEffects } from './store/settings/settings.effects';
 import { provideEffects } from '@ngrx/effects';
+import { RECAPTCHA_V3_SITE_KEY } from 'ng-recaptcha';
+import { environment } from 'src/environments/environment';
 
 export const appConfig: ApplicationConfig = {
    providers: [
@@ -25,6 +27,10 @@ export const appConfig: ApplicationConfig = {
          }),
          withInterceptors([jwtInterceptor])
       ),
+      {
+         provide: RECAPTCHA_V3_SITE_KEY,
+         useValue: environment.recaptchaSiteKey,
+      },
       importProvidersFrom(TranslateModule.forRoot({
          loader: {
             provide: TranslateLoader,

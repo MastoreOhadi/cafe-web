@@ -22,6 +22,8 @@
         "clsx": "^2.1.1",
         "express": "^5.1.0",
         "lucide-static": "^0.544.0",
+        "ng-recaptcha": "^13.2.1",
+        "ngx-mask": "^20.0.3",
         "postcss": "^8.5.6",
         "rxjs": "~7.8.0",
         "tailwind-merge": "^3.3.1",
@@ -520,6 +522,8 @@
 
     "@types/express-serve-static-core": ["@types/express-serve-static-core@5.0.7", "", { "dependencies": { "@types/node": "*", "@types/qs": "*", "@types/range-parser": "*", "@types/send": "*" } }, "sha512-R+33OsgWw7rOhD1emjU7dzCDHucJrgJXMA5PYCzJxVil0dsyx5iBEPHqpPfiKNJQb7lZ1vxwoLR4Z87bBUpeGQ=="],
 
+    "@types/grecaptcha": ["@types/grecaptcha@3.0.9", "", {}, "sha512-fFxMtjAvXXMYTzDFK5NpcVB7WHnrHVLl00QzEGpuFxSAC789io6M+vjcn+g5FTEamIJtJr/IHkCDsqvJxeWDyw=="],
+
     "@types/http-errors": ["@types/http-errors@2.0.5", "", {}, "sha512-r8Tayk8HJnX0FztbZN7oVqGccWgw98T/0neJphO91KkmOzug1KkofZURD4UaD5uH8AqcFLfdPErnBod0u71/qg=="],
 
     "@types/jasmine": ["@types/jasmine@5.1.9", "", {}, "sha512-8t4HtkW4wxiPVedMpeZ63n3vlWxEIquo/zc1Tm8ElU+SqVV7+D3Na2PWaJUp179AzTragMWVwkMv7mvty0NfyQ=="],
@@ -987,6 +991,10 @@
     "nanoid": ["nanoid@3.3.11", "", { "bin": "bin/nanoid.cjs" }, "sha512-N8SpfPUnUp1bK+PMYW8qSWdl9U+wwNWI4QKxOYDy9JAro3WMX7p2OeVRF9v+347pnakNevPmiHhNmZ2HbFA76w=="],
 
     "negotiator": ["negotiator@1.0.0", "", {}, "sha512-8Ofs/AUQh8MaEcrlq5xOX0CQ9ypTF5dl78mjlMNfOK08fzpgTHQRQPBxcPlEtIw0yRpws+Zo/3r+5WRby7u3Gg=="],
+
+    "ng-recaptcha": ["ng-recaptcha@13.2.1", "", { "dependencies": { "@types/grecaptcha": "^3.0.7", "tslib": "^2.2.0" }, "peerDependencies": { "@angular/core": "^17.0.0" } }, "sha512-aBOoFla9t6AfT9t5paykoXomCDKreBKouB16VUFxSZwn1RCfDsdcaTmSNJKYLFz5j0Cq/V+szY9f3mHLgzRw5Q=="],
+
+    "ngx-mask": ["ngx-mask@20.0.3", "", { "dependencies": { "tslib": "^2.3.0" }, "peerDependencies": { "@angular/common": ">=14.0.0", "@angular/core": ">=14.0.0", "@angular/forms": ">=14.0.0" } }, "sha512-5bmrgbFGudj0mFN6cPv/TI+cFJxT4l61mLIFskdvaXsJL/Oj7thRmWYqvqHXjCboOcx8gT6T/Zypl5u9l2J8Jg=="],
 
     "node-addon-api": ["node-addon-api@6.1.0", "", {}, "sha512-+eawOlIgy680F0kBzPUNFhMZGtJ1YmqM6l4+Crf4IkImjYrO/mqPwRMh352g23uIaQKFItcQ64I7KMaJxHgAVA=="],
 
