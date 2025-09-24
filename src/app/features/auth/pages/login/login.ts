@@ -3,6 +3,7 @@ import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } fr
 import { Router, RouterLink } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { firstValueFrom } from 'rxjs';
+import { RecaptchaV3Module, ReCaptchaV3Service } from 'ng-recaptcha';
 
 import { NavigationBarComponent } from '../../../../core/components/navigation-bar/navigation-bar';
 import { AuthService, LoginData } from '../../../../core/services/auth/auth.service';
@@ -15,7 +16,8 @@ import { ZardButtonComponent } from '@shared/ui/button/button.component';
       TranslateModule,
       NavigationBarComponent,
       ZardButtonComponent,
-      RouterLink
+      RouterLink,
+      RecaptchaV3Module
    ],
    changeDetection: ChangeDetectionStrategy.OnPush,
    templateUrl: './login.html',
@@ -26,24 +28,32 @@ export class Login {
    private readonly fb = inject(NonNullableFormBuilder);
    private readonly router = inject(Router);
    private readonly translate = inject(TranslateService);
+   private readonly recaptchaV3Service = inject(ReCaptchaV3Service);
 
    showPassword = signal(false);
    isSubmitting = signal(false);
    errorMessage = signal<string | null>(null);
+   captchaToken = signal<string | null>(null);
 
    loginForm: FormGroup = this.fb.group({
       entity: ['', Validators.required],
       password: ['', Validators.required],
-      rememberMe: [false]
+      rememberMe: [false],
    });
 
    togglePassword = () => this.showPassword.update((v) => !v);
 
+   onCaptchaResolved(token: string | null) {
+      this.captchaToken.set(token);
+      this.loginForm.get('recaptcha')?.setValue(token);
+   };
+
    private async handleLogin(payload: LoginData): Promise<void> {
       try {
          await firstValueFrom(this.authService.login(payload));
-         await this.router.navigate(['/dashboard']);
+         // await this.router.navigate(['/dashboard']);
       } catch (error: any) {
+         console.log(error);
          let errorKey = 'auth.login.error';
          if (error?.status === 400) {
             if (error?.error?.error === 'Invalid request format') {
@@ -52,7 +62,9 @@ export class Login {
                errorKey = 'auth.errors.iranianPhone';
             }
          } else if (error?.status === 401) {
-            if (error?.error?.error === 'User not found or inactive') {
+            if (error?.error?.error === 'Invalid recaptcha') {
+               errorKey = 'auth.login.recaptchaError';
+            } else if (error?.error?.error === 'User not found or inactive') {
                errorKey = 'auth.login.phoneNotFound';
             } else if (error?.error?.error === 'Account temporarily locked') {
                errorKey = 'auth.login.accountLocked';
@@ -73,13 +85,15 @@ export class Login {
       if (this.loginForm.invalid) {
          this.loginForm.markAllAsTouched();
          return;
-      }
+      };
 
       this.isSubmitting.set(true);
       this.errorMessage.set(null);
 
+      const token = await firstValueFrom(this.recaptchaV3Service.execute('login'));
+
       const { entity, password, rememberMe } = this.loginForm.getRawValue();
-      const payload: LoginData = { entity, password, rememberMe };
+      const payload: LoginData = { entity, password, rememberMe, recaptchaToken: token };
 
       await this.handleLogin(payload);
    }

@@ -15,6 +15,7 @@ export interface LoginData {
    entity: string;
    password: string;
    rememberMe: boolean;
+   recaptchaToken: string;
 };
 
 export interface PhoneVerificationData {
