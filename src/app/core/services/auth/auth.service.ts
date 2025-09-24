@@ -9,6 +9,7 @@ export interface RegisterData {
    city: string;
    province: string;
    password: string;
+   recaptchaToken: string;
 };
 
 export interface LoginData {
