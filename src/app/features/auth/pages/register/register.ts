@@ -14,16 +14,7 @@ import { ZardButtonComponent } from '@shared/ui/button/button.component';
 import { Router } from '@angular/router';
 import { PhoneFormatPipe } from "../../../../core/pipes/phone-format.pipe";
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
-
-// function calculatePasswordStrength(password: string): number {
-// //    let score = 0;
-// //    if (password.length >= 8) score++;
-// //    if (/[A-Z]/.test(password)) score++;
-// //    if (/[0-9]/.test(password)) score++;
-// //    if (/[^A-Za-z0-9]/.test(password)) score++;
-
-// //    return score;
-// // };
+import { RecaptchaV3Module, ReCaptchaV3Service } from 'ng-recaptcha';
 
 interface PasswordStrength {
   score: number;
@@ -35,8 +26,8 @@ interface PasswordStrength {
    imports: [
       NgClass, ReactiveFormsModule, TranslateModule,
       NavigationBarComponent, CitySelectorComponent,
-      ZardButtonComponent,
-      PhoneFormatPipe, NgxMaskDirective
+      ZardButtonComponent, PhoneFormatPipe,
+      NgxMaskDirective, RecaptchaV3Module
    ],
    providers: [provideNgxMask()],
    changeDetection: ChangeDetectionStrategy.OnPush,
@@ -44,9 +35,10 @@ interface PasswordStrength {
    styleUrl: './register.css'
 })
 export class Register {
-   private authService = inject(AuthService);
-   private fb = inject(FormBuilder);
-   private translate = inject(TranslateService);
+   private readonly authService = inject(AuthService);
+   private readonly fb = inject(FormBuilder);
+   private readonly translate = inject(TranslateService);
+   private readonly recaptchaV3Service = inject(ReCaptchaV3Service);
    // private router = inject(Router);
 
    authStep = signal<'register' | 'otp'>('register');
@@ -75,7 +67,6 @@ export class Register {
    isResending = signal(false);
    errorMessage = signal<string | null>(null);
    successMessage = signal<string | null>(null);
-
 
    private passwordValue = toSignal(this.registerForm.get('password')!.valueChanges, { initialValue: '' });
 
@@ -162,10 +153,14 @@ export class Register {
       if (type === 'register') {
          if (error.status === 409 && error.error?.error?.includes('Phone number already registered')) {
             return this.translate.instant('auth.register.phoneAlreadyRegistered');
-         }
-         if (error.status === 429 && error.error?.error?.includes('Phone number is temporarily blocked')) {
+         } else if (error.status === 429 && error.error?.error?.includes('Phone number is temporarily blocked')) {
             return this.translate.instant('auth.otp.phoneBlocked');
+         } else if (error?.status === 401 && error.error?.error?.includes('Invalid recaptcha')) {
+            return this.translate.instant('auth.login.recaptchaError');
          }
+
+         this.errorMessage.set(this.mapErrorToMessage(error, 'register'));
+
       } else if (type === 'otp') {
          if (error.status === 401) {
             const errText: string = error.error?.error ?? '';
@@ -199,17 +194,19 @@ export class Register {
       this.otpForm.reset();
       this.errorMessage.set(null);
       this.successMessage.set(null);
-   }
+   };
 
    async onRegisterSubmit(): Promise<void> {
       if (this.registerForm.invalid) {
          this.registerForm.markAllAsTouched();
          return;
-      }
+      };
 
       this.isSubmitting.set(true);
       this.errorMessage.set(null);
       this.successMessage.set(null);
+
+      const token = await firstValueFrom(this.recaptchaV3Service.execute('signup'));
 
       try {
          const { fullName, phone, city, password } = this.registerForm.getRawValue();
@@ -218,7 +215,8 @@ export class Register {
             phone: phone,
             city: city.cityId,
             province: city.provinceId,
-            password: password
+            password: password,
+            recaptchaToken: token
          };
 
          await firstValueFrom(this.authService.register(payload));
@@ -230,7 +228,7 @@ export class Register {
       } finally {
          this.isSubmitting.set(false);
       };
-   }
+   };
 
    async onOtpSubmit(): Promise<void> {
       if (this.otpForm.invalid) {
