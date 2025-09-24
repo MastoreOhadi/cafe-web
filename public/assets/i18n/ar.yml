@@ -1,5 +1,7 @@
 title: "المقهى"
 auth:
+  title: "التسجيل والتحقق من رقم الهاتف"
+  subtitle: "إنشاء حساب جديد"
   register:
     title: "تسجيل حساب"
     subtitle: "أنشئ حسابًا جديدًا"
@@ -11,9 +13,10 @@ auth:
     acceptTerms: "أوافق على <0>الشروط والأحكام</0> و <1>سياسة الخصوصية</1>"
     button: "تسجيل"
     loading: "جاري التسجيل..."
-    success: "تم التسجيل بنجاح!"
+    success: "تم التسجيل بنجاح! يرجى إدخال رمز OTP."
     error: "حدث خطأ أثناء التسجيل"
     alreadyHaveAccount: "لديك حساب بالفعل؟ <0>تسجيل الدخول</0>"
+    phoneAlreadyRegistered: "رقم الهاتف مسجل بالفعل. يرجى تسجيل الدخول."
     footer: "بتسجيلك، تصبح جزءًا من عائلة مقهانا"
 
   login:
@@ -25,16 +28,38 @@ auth:
     forgotPassword: "هل نسيت كلمة المرور؟"
     button: "تسجيل الدخول"
     loading: "جاري تسجيل الدخول..."
-    noAccount: "ليس لديك حساب؟ <a class='text-amber-600 hover:text-amber-700 dark:text-amber-400 dark:hover:text-amber-300 font-semibold transition-colors duration-200' href='/signup'>سجّل الآن</a>"
+    noAccount: "ليس لديك حساب؟ <a class='text-amber-600 hover:text-amber-700 dark:text-amber-400 dark:hover:text-amber-300 font-semibold transition-colors duration-200' href='/auth'>سجّل الآن</a>"
     footer: "بتسجيل الدخول، فإنك توافق على الشروط والأحكام"
     error: "فشل تسجيل الدخول. يرجى المحاولة مرة أخرى."
+    phoneNotFound: "رقم الهاتف غير موجود أو الحساب غير نشط."
+    accountLocked: "الحساب مؤقتًا مقفل. يرجى المحاولة لاحقًا."
+    invalidCredentials: "رقم الهاتف أو كلمة المرور غير صحيحة."
+    serviceUnavailable: "خدمة تسجيل الدخول غير متاحة مؤقتًا. يرجى المحاولة لاحقًا."
+    recaptchaError: "فشل التحقق من reCAPTCHA. يرجى المحاولة مرة أخرى."
+    recaptchaInvalid: "رمز reCAPTCHA غير صالح. يرجى المحاولة مرة أخرى."
 
-  passwordStrength:
-    veryWeak: "ضعيف جدًا"
-    weak: "ضعيف"
-    medium: "متوسط"
-    strong: "قوي"
-    veryStrong: "قوي جدًا"
+  otp:
+    title: "التحقق من OTP"
+    subtitle: "تم إرسال رمز التحقق إلى {{phone}}."
+    code: "رمز OTP"
+    placeholder: "أدخل الرمز المكون من 6 أرقام"
+    verifyButton: "تحقق"
+    verifying: "جاري التحقق..."
+    resendButton: "إعادة الإرسال"
+    resending: "جاري إعادة الإرسال..."
+    changePhone: "تغيير رقم الهاتف"
+    success: "تم التحقق بنجاح! سيتم التوجيه إلى لوحة التحكم."
+    error: "فشل التحقق من OTP. يرجى المحاولة مرة أخرى."
+    resendSuccess: "تم إعادة إرسال OTP بنجاح."
+    resendError: "فشل إعادة إرسال OTP. يرجى المحاولة مرة أخرى."
+    invalidCode: "الرمز المدخل غير صالح. المحاولات المتبقية: {{attemptsLeft}}"
+    otpExpired: "انتهت صلاحية OTP. يرجى طلب واحد جديد."
+    maxAttempts: "تم تجاوز الحد الأقصى للمحاولات."
+    phoneBlocked: "رقم هاتفك محظور مؤقتًا. حاول لاحقًا."
+    cooldown: "يرجى الانتظار قبل طلب OTP جديد."
+    hourLimitExceeded: "تم الوصول إلى الحد الساعي لإرسال OTP."
+    dayLimitExceeded: "تم الوصول إلى الحد اليومي لإرسال OTP."
+    sessionExpired: "انتهت جلسة التسجيل. يرجى المحاولة مرة أخرى."
 
   errors:
     required: "هذا الحقل مطلوب"
@@ -45,7 +70,22 @@ auth:
     mismatch: "كلمة المرور وتأكيدها غير متطابقين"
     acceptTerms: "يرجى الموافقة على الشروط والأحكام"
 
+  passwordStrength:
+    veryWeak: "ضعيف جدًا"
+    weak: "ضعيف"
+    medium: "متوسط"
+    strong: "قوي"
+    veryStrong: "قوي جدًا"
+
   placeholders:
     entity: "أدخل اسم المستخدم أو رقم الهاتف"
     fullName: "أدخل اسمك الكامل"
     city: "أدخل مدينتك"
+    password: "أدخل كلمة المرور"
+    confirmPassword: "أعد إدخال كلمة المرور"
+
+  citySelector:
+    searchPlaceholder: "ابحث عن المدينة..."
+    noResults: "لم يتم العثور على أي مدينة"
+    noCities: "لا توجد مدن متاحة"
+    resultsFound: "تم العثور على نتيجة"

@@ -34,6 +34,8 @@ auth:
     accountLocked: "حساب شما موقتاً قفل شده است. لطفاً بعداً تلاش کنید."
     invalidCredentials: "شماره تلفن یا رمز عبور اشتباه است."
     serviceUnavailable: "سرویس ورود موقتاً در دسترس نیست. لطفاً بعداً تلاش کنید."
+    recaptchaError: "خطا در اعتبارسنجی reCAPTCHA. لطفاً دوباره تلاش کنید."
+    recaptchaInvalid: "توکن reCAPTCHA نامعتبر است. لطفاً دوباره تلاش کنید."
   otp:
     title: تأیید کد OTP
     subtitle: کد تأیید به شماره {{phone}} ارسال شده است.

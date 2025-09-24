@@ -1,5 +1,7 @@
 title: "Cafe"
 auth:
+  title: "Sign Up & Phone Verification"
+  subtitle: "Create a new account"
   register:
     title: "Sign Up"
     subtitle: "Create a new account"
@@ -11,9 +13,10 @@ auth:
     acceptTerms: "I agree to the <0>Terms & Conditions</0> and <1>Privacy Policy</1>"
     button: "Register"
     loading: "Registering..."
-    success: "Registration successful!"
+    success: "Registration successful! Please enter the OTP."
     error: "An error occurred during registration"
     alreadyHaveAccount: "Already have an account? <0>Login</0>"
+    phoneAlreadyRegistered: "Phone number is already registered. Please login."
     footer: "By signing up, you become part of our cafe family"
 
   login:
@@ -25,16 +28,38 @@ auth:
     forgotPassword: "Forgot your password?"
     button: "Login"
     loading: "Logging in..."
-    noAccount: "Don’t have an account? <a class='text-amber-600 hover:text-amber-700 dark:text-amber-400 dark:hover:text-amber-300 font-semibold transition-colors duration-200' href='/signup'>Sign Up</a>"
+    noAccount: "Don’t have an account? <a class='text-amber-600 hover:text-amber-700 dark:text-amber-400 dark:hover:text-amber-300 font-semibold transition-colors duration-200' href='/auth'>Sign Up</a>"
     footer: "By logging in, you agree to the Terms & Conditions"
     error: "Login failed. Please try again."
+    phoneNotFound: "Phone number not found or account inactive."
+    accountLocked: "Account temporarily locked. Please try later."
+    invalidCredentials: "Phone number or password is incorrect."
+    serviceUnavailable: "Login service temporarily unavailable. Please try later."
+    recaptchaError: "reCAPTCHA verification failed. Please try again."
+    recaptchaInvalid: "Invalid reCAPTCHA token. Please try again."
 
-  passwordStrength:
-    veryWeak: "Very Weak"
-    weak: "Weak"
-    medium: "Medium"
-    strong: "Strong"
-    veryStrong: "Very Strong"
+  otp:
+    title: "OTP Verification"
+    subtitle: "Verification code sent to {{phone}}."
+    code: "OTP Code"
+    placeholder: "Enter 6-digit code"
+    verifyButton: "Verify"
+    verifying: "Verifying..."
+    resendButton: "Resend"
+    resending: "Resending..."
+    changePhone: "Change Phone"
+    success: "Verification successful! Redirecting to dashboard."
+    error: "OTP verification failed. Please try again."
+    resendSuccess: "OTP resent successfully."
+    resendError: "Failed to resend OTP. Please try again."
+    invalidCode: "Invalid code entered. Attempts left: {{attemptsLeft}}"
+    otpExpired: "OTP expired. Please request a new one."
+    maxAttempts: "Maximum attempts exceeded."
+    phoneBlocked: "Your phone is temporarily blocked. Try later."
+    cooldown: "Please wait before requesting a new OTP."
+    hourLimitExceeded: "Hourly OTP limit reached."
+    dayLimitExceeded: "Daily OTP limit reached."
+    sessionExpired: "Registration session expired. Please try again."
 
   errors:
     required: "This field is required"
@@ -44,6 +69,13 @@ auth:
     passwordStrength: "Password must include uppercase letters, numbers, and special characters"
     mismatch: "Password and confirmation do not match"
     acceptTerms: "Please accept the Terms & Conditions"
+
+  passwordStrength:
+    veryWeak: "Very Weak"
+    weak: "Weak"
+    medium: "Medium"
+    strong: "Strong"
+    veryStrong: "Very Strong"
 
   placeholders:
     entity: "Enter your username or phone number"
