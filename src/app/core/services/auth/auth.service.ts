@@ -40,24 +40,14 @@ export class AuthService {
    ) {}
 
    private getCookie(name: string): string | null {
-      if (!isPlatformBrowser(this.platformId)) {
-         return null;
-      };
+      if (!isPlatformBrowser(this.platformId)) return null;
 
       const nameEQ = name + '=';
       const cookies = this.document.cookie.split(';');
-
-      for (let i = 0; i < cookies.length; i++) {
-         let cookie = cookies[i];
-         while (cookie.charAt(0) === ' ') {
-            cookie = cookie.substring(1, cookie.length);
-         }
-
-         if (cookie.indexOf(nameEQ) === 0) {
-            return cookie.substring(nameEQ.length, cookie.length);
-         }
-      };
-
+      for (let c of cookies) {
+         c = c.trim();
+         if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length);
+      }
       return null;
    };
 

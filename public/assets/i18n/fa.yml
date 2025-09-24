@@ -30,6 +30,10 @@ auth:
     noAccount: "حساب کاربری ندارید؟ <a class='text-amber-600 hover:text-amber-700 dark:text-amber-400 dark:hover:text-amber-300 font-semibold transition-colors duration-200' href='/auth'>ثبت نام کنید</a>"
     footer: "با ورود به حساب، شرایط و قوانین را پذیرفته‌اید"
     error: "خطا در ورود. لطفا مجددا تلاش کنید."
+    phoneNotFound: "شماره تلفن یافت نشد یا حساب غیرفعال است."
+    accountLocked: "حساب شما موقتاً قفل شده است. لطفاً بعداً تلاش کنید."
+    invalidCredentials: "شماره تلفن یا رمز عبور اشتباه است."
+    serviceUnavailable: "سرویس ورود موقتاً در دسترس نیست. لطفاً بعداً تلاش کنید."
   otp:
     title: تأیید کد OTP
     subtitle: کد تأیید به شماره {{phone}} ارسال شده است.
