@@ -27,7 +27,7 @@ import {
     `
   }
 })
-export class ButtonComponent {
+export class DButton {
   @Input() type: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link' = 'default';
   @Input() size: 'default' | 'sm' | 'lg' | 'icon' = 'default';
   @Input() shape: 'default' | 'circle' | 'square' = 'default';
@@ -55,7 +55,7 @@ export class ButtonComponent {
       secondary: 'bg-gray-200 text-gray-900 hover:bg-gray-300 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600',
       ghost: 'hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-white',
       link: 'text-blue-600 underline-offset-4 hover:underline dark:text-blue-400'
-    };
+    } as const;
 
     return classes[this.type] || classes.default;
   }
@@ -66,7 +66,7 @@ export class ButtonComponent {
       sm: 'h-8 px-3 gap-1.5',
       lg: 'h-10 px-6',
       icon: 'size-9'
-    };
+    } as const;
 
     return classes[this.size] || classes.default;
   }
@@ -76,7 +76,7 @@ export class ButtonComponent {
       default: 'rounded-md',
       circle: 'rounded-full',
       square: 'rounded-none'
-    };
+    } as const;
 
     return classes[this.shape] || classes.default;
   }

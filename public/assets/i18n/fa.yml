@@ -10,12 +10,12 @@ auth:
     city: شهر
     password: رمز عبور
     confirmPassword: تأیید رمز عبور
-    acceptTerms: با <0>شرایط و قوانین</0> و <1>حریم خصوصی</1> موافقم
     button: ثبت نام
     loading: در حال ثبت نام...
     success: ثبت نام با موفقیت انجام شد! لطفاً کد OTP را وارد کنید.
     error: خطایی در ثبت نام رخ داده است
-    alreadyHaveAccount: قبلاً حساب کاربری دارید؟ <0>وارد شوید</0>
+    acceptTerms: "با {{terms}} و {{privacy}} موافقم"
+    alreadyHaveAccount: "قبلاً حساب کاربری دارید؟ {{login}}"
     phoneAlreadyRegistered: شماره تلفن قبلاً ثبت شده است. لطفاً وارد شوید.
     footer: با ثبت نام، شما عضوی از خانواده کافه ما می‌شوید
   login:
@@ -83,3 +83,8 @@ auth:
     noResults: "هیچ شهری یافت نشد"
     noCities: "هیچ شهری موجود نیست"
     resultsFound: "نتیجه یافت شد"
+
+  links:
+    terms: "شرایط و قوانین"
+    privacy: "حریم خصوصی"
+    login: "وارد شوید"
