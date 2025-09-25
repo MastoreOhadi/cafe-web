@@ -16,11 +16,5 @@ export const routes: Routes = [
       path: "page",
       loadComponent: () =>
          import("./modules/cafe/pages/cafe-page/cafe-page").then(c => c.CafePage)
-   }, {
-      title: 'otp',
-      path: 'otp-verification',
-      // component: OtpVerificationComponent,
-      loadComponent: () =>
-         import("./modules/auth/pages/otp/otp-verification.component").then(c => c.OtpVerificationComponent)
    }
 ];
