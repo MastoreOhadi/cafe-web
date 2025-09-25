@@ -5,22 +5,22 @@ export const routes: Routes = [
       title: "signup",
       path: "signup",
       loadComponent: () =>
-         import("../app/features/auth/pages/register/register").then(c => c.Register)
+         import("./modules/auth/pages/register/register").then(c => c.Register)
    }, {
       title: "login",
       path: "login",
       loadComponent: () =>
-         import("../app/features/auth/pages/login/login").then(c => c.Login)
+         import("./modules/auth/pages/login/login").then(c => c.Login)
    }, {
       title: "page",
       path: "page",
       loadComponent: () =>
-         import("../app/features/cafe/pages/cafe-page/cafe-page").then(c => c.CafePage)
+         import("./modules/cafe/pages/cafe-page/cafe-page").then(c => c.CafePage)
    }, {
       title: 'otp',
       path: 'otp-verification',
       // component: OtpVerificationComponent,
       loadComponent: () =>
-         import("../app/features/auth/pages/otp/otp-verification.component").then(c => c.OtpVerificationComponent)
+         import("./modules/auth/pages/otp/otp-verification.component").then(c => c.OtpVerificationComponent)
    }
 ];
