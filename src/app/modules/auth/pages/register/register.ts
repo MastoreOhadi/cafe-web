@@ -1,20 +1,20 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
-import { CommonModule, NgClass, NgIf } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { debounceTime, distinctUntilChanged, finalize, firstValueFrom } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { NavigationBarComponent } from '../../../../core/components/navigation-bar/navigation-bar';
-import { AuthService, PhoneVerificationData, RegisterData, ResendOtpData } from '../../../../core/services/auth/auth.service';
+import { AuthService, PhoneVerificationData, RegisterData } from '../../../../core/services/auth/auth.service';
 import { CustomValidators } from '../../../../core/validators/custom-validators';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { CitySelectorComponent } from '../../components/city/city-selector.component';
-import { ZardButtonComponent } from '@shared/ui/button/button.component';
 import { Router } from '@angular/router';
 import { PhoneFormatPipe } from "../../../../core/pipes/phone-format.pipe";
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { RecaptchaV3Module, ReCaptchaV3Service } from 'ng-recaptcha';
+import { SafeHtmlPipe } from 'src/app/core/pipes/safe-html.pipe';
+import { DButton } from 'src/app/core/components/button/button.component';
 
 interface PasswordStrength {
   score: number;
@@ -24,9 +24,9 @@ interface PasswordStrength {
 @Component({
    selector: 'app-register',
    imports: [
-      NgClass, ReactiveFormsModule, TranslateModule,
+      ReactiveFormsModule, TranslateModule,
       NavigationBarComponent, CitySelectorComponent,
-      ZardButtonComponent, PhoneFormatPipe,
+      PhoneFormatPipe, SafeHtmlPipe, DButton,
       NgxMaskDirective, RecaptchaV3Module
    ],
    providers: [provideNgxMask()],
@@ -187,6 +187,23 @@ export class Register {
       };
 
       return this.translate.instant(`auth.${type}.error`);
+   };
+
+   getTranslatedText(key: string, params?: any): string {
+      let text = this.translate.instant(key, params);
+
+      if (key === 'auth.register.acceptTerms') {
+         const termsLink = `<a href="/terms" class="text-amber-600 hover:underline">${this.translate.instant('auth.links.terms')}</a>`;
+         const privacyLink = `<a href="/privacy" class="text-amber-600 hover:underline">${this.translate.instant('auth.links.privacy')}</a>`;
+         text = text.replace('{{terms}}', termsLink).replace('{{privacy}}', privacyLink);
+      }
+
+      if (key === 'auth.register.alreadyHaveAccount') {
+         const loginLink = `<a href="/login" class="text-amber-600 hover:underline font-semibold">${this.translate.instant('auth.links.login')}</a>`;
+         text = text.replace('{{login}}', loginLink);
+      }
+
+      return text;
    };
 
    changePhone(): void {
