@@ -16,11 +16,6 @@ import { RecaptchaV3Module, ReCaptchaV3Service } from 'ng-recaptcha';
 import { SafeHtmlPipe } from 'src/app/core/pipes/safe-html.pipe';
 import { DButton } from 'src/app/core/components/button/button.component';
 
-interface PasswordStrength {
-  score: number;
-  text: string;
-};
-
 @Component({
    selector: 'app-register',
    imports: [
@@ -70,7 +65,7 @@ export class Register {
 
    private passwordValue = toSignal(this.registerForm.get('password')!.valueChanges, { initialValue: '' });
 
-   passwordStrength = computed<PasswordStrength>(() => {
+   passwordStrength = computed<{score: number; text: string}>(() => {
       const pwd = this.passwordValue();
       if (!pwd) return { score: 0, text: '' };
 
@@ -125,28 +120,6 @@ export class Register {
       else this.showConfirmPassword.update(v => !v);
    };
 
-   private calculatePasswordStrength(password: string): PasswordStrength {
-      if (!password) return { score: 0, text: '' };
-
-      let score = 0;
-      if (password.length >= 8) score++;
-      if (/[A-Z]/.test(password)) score++;
-      if (/[0-9]/.test(password)) score++;
-      if (/[^A-Za-z0-9]/.test(password)) score++;
-
-      const texts = [
-         this.translate.instant('auth.passwordStrength.veryWeak'),
-         this.translate.instant('auth.passwordStrength.weak'),
-         this.translate.instant('auth.passwordStrength.medium'),
-         this.translate.instant('auth.passwordStrength.strong'),
-         this.translate.instant('auth.passwordStrength.veryStrong')
-      ];
-
-      return {
-         score, text: texts[score],
-      };
-   };
-
    private mapErrorToMessage(error: any, type: 'register' | 'otp' | 'resend'): string {
       if (!error) return this.translate.instant(`auth.${type}.error`);
 
@@ -158,9 +131,6 @@ export class Register {
          } else if (error?.status === 401 && error.error?.error?.includes('Invalid recaptcha')) {
             return this.translate.instant('auth.login.recaptchaError');
          }
-
-         this.errorMessage.set(this.mapErrorToMessage(error, 'register'));
-
       } else if (type === 'otp') {
          if (error.status === 401) {
             const errText: string = error.error?.error ?? '';
@@ -170,8 +140,7 @@ export class Register {
             }
             if (errText.includes('OTP has expired')) return this.translate.instant('auth.otp.otpExpired');
             if (errText.includes('Sign-up session expired')) return this.translate.instant('auth.otp.sessionExpired');
-         }
-         if (error.status === 429) {
+         } else if (error.status === 429) {
             if (error.error?.error?.includes('Phone is temporarily blocked')) return this.translate.instant('auth.otp.phoneBlocked');
             if (error.error?.error?.includes('Maximum OTP attempts exceeded')) return this.translate.instant('auth.otp.maxAttempts');
          }
