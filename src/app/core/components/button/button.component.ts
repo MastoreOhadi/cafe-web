@@ -49,7 +49,7 @@ export class DButton {
 
   private getTypeClasses(): string {
     const classes = {
-      default: 'bg-blue-600 text-white shadow-xs hover:bg-blue-700',
+      default: '', //'bg-blue-600 text-white shadow-xs hover:bg-blue-700',
       destructive: 'bg-red-600 text-white shadow-xs hover:bg-red-700',
       outline: 'border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700',
       secondary: 'bg-gray-200 text-gray-900 hover:bg-gray-300 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600',
