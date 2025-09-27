@@ -61,7 +61,7 @@ export class TokenService {
    setTokens(accessToken: string, refreshToken: string): void {
       this.access_token = accessToken;
       if (isPlatformBrowser(this.platformId)) {
-         sessionStorage.setItem('refresh_token', refreshToken);
+         localStorage.setItem('refresh_token', refreshToken);
       }
    }
 
@@ -71,14 +71,14 @@ export class TokenService {
 
    getRefreshToken(): string | null {
       return isPlatformBrowser(this.platformId)
-         ? sessionStorage.getItem('refresh_token')
+         ? localStorage.getItem('refresh_token')
          : null;
    }
 
    clear(): void {
       this.access_token = null;
       if (isPlatformBrowser(this.platformId)) {
-         sessionStorage.removeItem('refresh_token');
+         localStorage.removeItem('refresh_token');
       }
    }
 }

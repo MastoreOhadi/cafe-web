@@ -55,37 +55,44 @@ export class AuthService {
       );
    };
 
-   autoLogin(): Observable<any> {
+   autoLogin(): Observable<string | null> {
       const access = this.tokenService.getAccessToken();
       if (access) return of(access);
 
       const refreshToken = this.tokenService.getRefreshToken();
       if (refreshToken) {
          return this.refreshToken().pipe(
-         switchMap((res: any) => of(res.access_token))
+            switchMap((res: any) => {
+               const token = res?.access_token ?? null;
+               return of(token ? token: null);
+            }),
+            catchError(() => of(null))
          );
       };
 
       return of(null);
    };
 
+
+
    refreshToken(): Observable<any> {
       const refreshToken = this.tokenService.getRefreshToken();
       if (!refreshToken) throw new Error('No refresh token available');
 
-      return this.api.post(
-         'auth/refresh', { refresh_token: refreshToken }
-      ).pipe(
-         tap((response: any) => {
-            this.tokenService.setTokens(
-               response.access_token,
-               response.refresh_token
-            );
-         }),
-         catchError((error) => {
-            this.logout();
-            throw error;
-         })
+      return this.withCsrfToken((token) => this.api.post(
+            'auth/refresh', { refresh_token: refreshToken }, {'X-Csrf-Token': token}
+         ).pipe(
+            tap((response: any) => {
+               this.tokenService.setTokens(
+                  response.access_token,
+                  response.refresh_token
+               );
+            }),
+            catchError((error) => {
+               this.logout();
+               throw error;
+            })
+         )
       );
    };
 
