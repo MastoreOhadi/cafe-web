@@ -14,6 +14,7 @@ import { provideEffects } from '@ngrx/effects';
 import { RECAPTCHA_V3_SITE_KEY } from 'ng-recaptcha';
 import { environment } from 'src/environments/environment';
 import { provideServiceWorker } from '@angular/service-worker';
+import { progressInterceptor } from 'ngx-progressbar/http';
 
 export const appConfig: ApplicationConfig = {
    providers: [
@@ -26,7 +27,7 @@ export const appConfig: ApplicationConfig = {
             cookieName: "csrf_token",
             headerName: "X-Csrf-Token"
          }),
-         withInterceptors([jwtInterceptor])
+         withInterceptors([jwtInterceptor, progressInterceptor])
       ),
       {
          provide: RECAPTCHA_V3_SITE_KEY,

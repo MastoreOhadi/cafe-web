@@ -25,6 +25,7 @@
         "lucide-static": "^0.544.0",
         "ng-recaptcha": "^13.2.1",
         "ngx-mask": "^20.0.3",
+        "ngx-progressbar": "^14.0.0",
         "postcss": "^8.5.6",
         "rxjs": "~7.8.0",
         "tailwind-merge": "^3.3.1",
@@ -998,6 +999,8 @@
     "ng-recaptcha": ["ng-recaptcha@13.2.1", "", { "dependencies": { "@types/grecaptcha": "^3.0.7", "tslib": "^2.2.0" }, "peerDependencies": { "@angular/core": "^17.0.0" } }, "sha512-aBOoFla9t6AfT9t5paykoXomCDKreBKouB16VUFxSZwn1RCfDsdcaTmSNJKYLFz5j0Cq/V+szY9f3mHLgzRw5Q=="],
 
     "ngx-mask": ["ngx-mask@20.0.3", "", { "dependencies": { "tslib": "^2.3.0" }, "peerDependencies": { "@angular/common": ">=14.0.0", "@angular/core": ">=14.0.0", "@angular/forms": ">=14.0.0" } }, "sha512-5bmrgbFGudj0mFN6cPv/TI+cFJxT4l61mLIFskdvaXsJL/Oj7thRmWYqvqHXjCboOcx8gT6T/Zypl5u9l2J8Jg=="],
+
+    "ngx-progressbar": ["ngx-progressbar@14.0.0", "", { "dependencies": { "tslib": "^2.3.0" }, "peerDependencies": { "@angular/cdk": ">=17.3.0", "@angular/common": ">=17.3.0", "@angular/core": ">=17.3.0", "rxjs": ">=7.0.0" } }, "sha512-tDj7h5F2aSI4/XaJjs50FnELVe6qFqyz3vVq22acacd3oDW2EyJB4c+IYaxMf5972OdTw0WL4n6UwQ3dqC+gCA=="],
 
     "node-addon-api": ["node-addon-api@6.1.0", "", {}, "sha512-+eawOlIgy680F0kBzPUNFhMZGtJ1YmqM6l4+Crf4IkImjYrO/mqPwRMh352g23uIaQKFItcQ64I7KMaJxHgAVA=="],
 
