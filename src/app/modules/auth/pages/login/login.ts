@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { firstValueFrom } from 'rxjs';
 import { RecaptchaV3Module, ReCaptchaV3Service } from 'ng-recaptcha';
@@ -26,9 +26,10 @@ import { ZardButtonComponent } from '@shared/ui/button/button.component';
 export class Login {
    private readonly authService = inject(AuthService);
    private readonly fb = inject(NonNullableFormBuilder);
-   private readonly router = inject(Router);
    private readonly translate = inject(TranslateService);
    private readonly recaptchaV3Service = inject(ReCaptchaV3Service);
+   private readonly router = inject(Router);
+   private readonly route = inject(ActivatedRoute);
 
    showPassword = signal(false);
    isSubmitting = signal(false);
@@ -96,5 +97,9 @@ export class Login {
       const payload: LoginData = { entity, password, rememberMe, recaptchaToken: token };
 
       await this.handleLogin(payload);
+
+      await this.router.navigateByUrl(
+         this.route.snapshot.queryParams['returnUrl'] || '/'
+      );
    }
 }
