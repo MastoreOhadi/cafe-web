@@ -7,7 +7,7 @@ import { ApiService } from '../api/api.service';
    providedIn: 'root',
 })
 export class TokenService {
-   private access_token: string | null = null;
+   // private access_token: string | null = null;
    private csrfToken: string | null = null;
 
    constructor(
@@ -59,14 +59,15 @@ export class TokenService {
    }
 
    setTokens(accessToken: string, refreshToken: string): void {
-      this.access_token = accessToken;
+      // this.access_token = accessToken;
       if (isPlatformBrowser(this.platformId)) {
+         sessionStorage.setItem("access_token", accessToken);
          localStorage.setItem('refresh_token', refreshToken);
       }
    }
 
    getAccessToken(): string | null {
-      return this.access_token;
+      return isPlatformBrowser(this.platformId) ? sessionStorage.getItem("access_token") : null;
    }
 
    getRefreshToken(): string | null {
@@ -76,9 +77,9 @@ export class TokenService {
    }
 
    clear(): void {
-      this.access_token = null;
       if (isPlatformBrowser(this.platformId)) {
+         sessionStorage.removeItem("access_token");
          localStorage.removeItem('refresh_token');
-      }
-   }
-}
+      };
+   };
+};

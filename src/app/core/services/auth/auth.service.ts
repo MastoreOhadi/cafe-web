@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '../api/api.service';
-import { catchError, Observable, of, switchMap, tap } from 'rxjs';
+import { catchError, map, Observable, of, switchMap, tap } from 'rxjs';
 import { TokenService } from './token.service';
 
 export interface RegisterData {
@@ -57,21 +57,26 @@ export class AuthService {
 
    autoLogin(): Observable<string | null> {
       const access = this.tokenService.getAccessToken();
-      if (access) return of(access);
+      if (access) {
+         return of(access);
+      }
 
       const refreshToken = this.tokenService.getRefreshToken();
       if (refreshToken) {
          return this.refreshToken().pipe(
-            switchMap((res: any) => {
-               const token = res?.access_token ?? null;
-               return of(token ? token: null);
+            map((res: any) => {
+               const token = res?.access_token || null;
+               return token;
             }),
-            catchError(() => of(null))
+            catchError(() => {
+               this.tokenService.clear();
+               return of(null);
+            })
          );
-      };
+      }
 
       return of(null);
-   };
+   }
 
    refreshToken(): Observable<any> {
       const refreshToken = this.tokenService.getRefreshToken();
@@ -81,9 +86,10 @@ export class AuthService {
             'auth/refresh', { refresh_token: refreshToken }, {'X-Csrf-Token': token}
          ).pipe(
             tap((response: any) => {
+               console.log(response)
                this.tokenService.setTokens(
                   response.access_token,
-                  response.refresh_token
+                  response.refresh_token || refreshToken
                );
             }),
             catchError((error) => {
