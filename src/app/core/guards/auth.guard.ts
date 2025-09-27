@@ -1,14 +1,22 @@
 import { inject } from '@angular/core';
-import { CanActivateFn, Router } from '@angular/router';
-import { TokenService } from '../services/auth/token.service';
+import { CanMatchFn, Router } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
+import { AuthService } from '../services/auth/auth.service';
 
-export const authGuard: CanActivateFn = async () => {
-    if (inject(TokenService).getAccessToken()) {
-        return true;
-    } else {
-        inject(Router).navigate(['/login']);
-        return false;
-    }
+export const authGuard: CanMatchFn = async () => {
+   const authService = inject(AuthService);
+   const router = inject(Router);
 
-   return false
-}
+   return firstValueFrom(
+      authService.autoLogin()
+   ).then(token => {
+      if (token) return true;
+      else {
+         router.navigate(['/auth/login']);
+         return false;
+      }
+   }).catch(() => {
+      router.navigate(['/auth/login']);
+      return false;
+   });
+};

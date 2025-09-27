@@ -1,11 +1,13 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
    {
       title: "page",
       path: "page",
       loadComponent: () =>
-         import("./modules/cafe/pages/cafe-page/cafe-page").then(c => c.CafePage)
+         import("./modules/cafe/pages/cafe-page/cafe-page").then(c => c.CafePage),
+      canMatch: [authGuard]
    }, {
       title: "auth",
       path: "auth",
