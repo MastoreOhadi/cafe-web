@@ -20,6 +20,7 @@
     "@angular/platform-browser": "^20.0.0",
     "@angular/platform-server": "^20.0.0",
     "@angular/router": "^20.0.0",
+    "@angular/service-worker": "^20.0.0",
     "@angular/ssr": "^20.0.0",
     "@ngrx/effects": "^20.0.1",
     "@ngrx/store": "^20.0.1",

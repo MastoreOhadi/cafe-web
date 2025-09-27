@@ -1,4 +1,4 @@
-import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection, isDevMode } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -13,6 +13,7 @@ import { SettingsEffects } from './store/settings/settings.effects';
 import { provideEffects } from '@ngrx/effects';
 import { RECAPTCHA_V3_SITE_KEY } from 'ng-recaptcha';
 import { environment } from 'src/environments/environment';
+import { provideServiceWorker } from '@angular/service-worker';
 
 export const appConfig: ApplicationConfig = {
    providers: [
@@ -39,9 +40,11 @@ export const appConfig: ApplicationConfig = {
          },
          fallbackLang: "fa",
       })),
-      provideStore({
-         settings: settingsReducer
-      }),
+      provideStore({settings: settingsReducer}),
       provideEffects([SettingsEffects]),
+      provideServiceWorker('ngsw-worker.js', {
+         enabled: !isDevMode(),
+         registrationStrategy: 'registerWhenStable:30000'
+      }),
    ]
 };

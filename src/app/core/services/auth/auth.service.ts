@@ -73,8 +73,6 @@ export class AuthService {
       return of(null);
    };
 
-
-
    refreshToken(): Observable<any> {
       const refreshToken = this.tokenService.getRefreshToken();
       if (!refreshToken) throw new Error('No refresh token available');

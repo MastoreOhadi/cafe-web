@@ -12,6 +12,7 @@
         "@angular/platform-browser": "^20.0.0",
         "@angular/platform-server": "^20.0.0",
         "@angular/router": "^20.0.0",
+        "@angular/service-worker": "^20.0.0",
         "@angular/ssr": "^20.0.0",
         "@ngrx/effects": "^20.0.1",
         "@ngrx/store": "^20.0.1",
@@ -111,6 +112,8 @@
     "@angular/platform-server": ["@angular/platform-server@20.3.0", "", { "dependencies": { "tslib": "^2.3.0", "xhr2": "^0.2.0" }, "peerDependencies": { "@angular/common": "20.3.0", "@angular/compiler": "20.3.0", "@angular/core": "20.3.0", "@angular/platform-browser": "20.3.0", "rxjs": "^6.5.3 || ^7.4.0" } }, "sha512-ixPyu3JEY3sgyvUdCqRbaZZA9M6KWGLZoiJPN4IszwcwCFUp3E5XOZ7mvSLzR+ZUYUml+z6ehtSPg2PM+e+CEQ=="],
 
     "@angular/router": ["@angular/router@20.3.0", "", { "dependencies": { "tslib": "^2.3.0" }, "peerDependencies": { "@angular/common": "20.3.0", "@angular/core": "20.3.0", "@angular/platform-browser": "20.3.0", "rxjs": "^6.5.3 || ^7.4.0" } }, "sha512-JshumajvPCMztz1+7r/l5tRxFL3cn2jCpr5szdc5hESkpytY4050hedd09GogL1UoIyZAjhyYLhSlMnvrgjHBA=="],
+
+    "@angular/service-worker": ["@angular/service-worker@20.3.2", "", { "dependencies": { "tslib": "^2.3.0" }, "peerDependencies": { "@angular/core": "20.3.2", "rxjs": "^6.5.3 || ^7.4.0" }, "bin": { "ngsw-config": "ngsw-config.js" } }, "sha512-SdaJ61JrliZLHEQ7kY2L98FLsVcti9+GeKODJUsHpnS2dv9RVSmWKJSa01kLsdOY/6wc1h5EHwkTg1iGHK0aew=="],
 
     "@angular/ssr": ["@angular/ssr@20.3.1", "", { "dependencies": { "tslib": "^2.3.0" }, "peerDependencies": { "@angular/common": "^20.0.0", "@angular/core": "^20.0.0", "@angular/platform-server": "^20.0.0", "@angular/router": "^20.0.0" } }, "sha512-SytsLdFCPwqRhW7xkGTrt/R/Ep4qS/MmPquu1dE0dpZ/jzsHQoXA2zSNZvy+JCW2gPZ2PU+pFAWgvWQGknw71w=="],
 
