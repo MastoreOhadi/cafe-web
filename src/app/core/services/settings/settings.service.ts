@@ -104,6 +104,22 @@ export class SettingsService {
 
    private getServerCookie(): string | undefined {
       console.log('🎯 Attempting to read server cookie...');
+
+      // اول از context بخون
+      if (this.request?.context?.appSettings) {
+         const contextSettings = this.request.context.appSettings;
+         console.log('🎯 Found settings in context:', contextSettings);
+
+         // از context مستقیماً استفاده کن و کوکی رو شبیه‌سازی کن
+         const simulatedCookie = JSON.stringify({
+            theme: contextSettings.theme,
+            language: contextSettings.language
+         });
+         console.log('🎯 Using simulated cookie from context:', simulatedCookie);
+         return simulatedCookie;
+      }
+
+      // اگر context نبود، از کوکی‌های مستقیم استفاده کن
       console.log('🎯 REQUEST object:', this.request);
       console.log('🎯 REQUEST cookies:', this.request?.cookies);
 
