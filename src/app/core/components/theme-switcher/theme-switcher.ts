@@ -65,7 +65,7 @@ import { NgClass } from '@angular/common';
 export class ThemeSwitcherComponent {
   private store = inject(Store);
 
-  theme = toSignal(this.store.select(selectTheme), { initialValue: 'light' });
+  theme = toSignal(this.store.select(selectTheme));
 
   toggleTheme(): void {
     this.store.dispatch(settingsActions.toggleTheme());

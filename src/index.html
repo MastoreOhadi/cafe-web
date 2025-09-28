@@ -7,23 +7,6 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="manifest" href="manifest.webmanifest">
 </head>
-<script>
-  if (typeof localStorage !== 'undefined') {
-    const settingsJson = localStorage.getItem('settings');
-    if (settingsJson) {
-      const settings = JSON.parse(settingsJson);
-      const language = settings.language || 'fa';
-      document.documentElement.lang = language;
-      document.documentElement.dir = (language === 'fa' || language === 'ar') ? 'rtl' : 'ltr';
-    } else {
-      document.documentElement.lang = 'fa';
-      document.documentElement.dir = 'rtl';
-    };
-  } else {
-    document.documentElement.lang = 'fa';
-    document.documentElement.dir = 'rtl';
-  };
-</script>
 <body>
   <app-root></app-root>
   <noscript>Please enable JavaScript to continue using this application.</noscript>

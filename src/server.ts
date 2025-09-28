@@ -6,11 +6,14 @@ import {
 } from '@angular/ssr/node';
 import express from 'express';
 import { join } from 'node:path';
+import cookieParser from 'cookie-parser';
 
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
 const app = express();
 const angularApp = new AngularNodeAppEngine();
+
+app.use(cookieParser());
 
 /**
  * Example Express Rest API endpoints can be defined here.
@@ -39,10 +42,14 @@ app.use(
  * Handle all other requests by rendering the Angular application.
  */
 app.use((req, res, next) => {
+  console.log('Cookies received:', req.cookies);
   angularApp
-    .handle(req)
+    .handle(req, {
+      headers: req.headers,
+      cookies: req.cookies,
+    })
     .then((response) =>
-      response ? writeResponseToNodeResponse(response, res) : next(),
+      response ? writeResponseToNodeResponse(response, res) : next()
     )
     .catch(next);
 });

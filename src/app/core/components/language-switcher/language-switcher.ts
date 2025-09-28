@@ -67,9 +67,7 @@ export class LanguageSwitcherComponent {
     { code: 'ar', name: 'العربية', flag: '🇸🇦' },
   ];
 
-  currentLanguage = toSignal(this.store.select(selectLanguage), {
-    initialValue: 'fa'
-  });
+  currentLanguage = toSignal(this.store.select(selectLanguage));
 
   selectedLanguage = computed(() => {
     const code = this.currentLanguage();

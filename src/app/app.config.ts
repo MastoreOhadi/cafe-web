@@ -1,4 +1,4 @@
-import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection, isDevMode } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection, isDevMode, inject } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -39,7 +39,6 @@ export const appConfig: ApplicationConfig = {
             useFactory: (http: HttpClient) => new YamlTranslateHttpLoader(http),
             deps: [HttpClient],
          },
-         fallbackLang: "fa",
       })),
       provideStore({settings: settingsReducer}),
       provideEffects([SettingsEffects]),

@@ -2,75 +2,34 @@ import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType, OnInitEffects } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 import * as settingsActions from './settings.actions';
 import { selectSettings, selectTheme } from './settings.selectors';
-import { TranslateService } from '@ngx-translate/core';
-import { initialState } from './settings.reducer';
+import { SettingsService } from '../../core/services/settings/settings.service';
 import { Action } from '@ngrx/store';
-import { of } from 'rxjs';
 
 @Injectable()
 export class SettingsEffects implements OnInitEffects {
    private actions$ = inject(Actions);
    private store = inject(Store);
    private translate = inject(TranslateService);
+   private settingsService = inject(SettingsService);
 
    constructor() {
       this.translate.addLangs(['en', 'fa', 'ar']);
-   }
-
-   private detectSystemTheme(): 'light' | 'dark' {
-      if (typeof window === 'undefined') {
-         return 'light';
-      }
-
-      try {
-         const prefersDark = window.matchMedia
-            ? window.matchMedia('(prefers-color-scheme: dark)').matches
-            : false;
-
-         return prefersDark ? 'dark' : 'light';
-      } catch (error) {
-         console.error('Error detecting system theme:', error);
-         return 'light';
-      }
    }
 
    loadSettings$ = createEffect(() =>
       this.actions$.pipe(
          ofType(settingsActions.loadSettings),
          switchMap(() => {
-         try {
-            if (typeof localStorage === 'undefined') {
-               return of(
-                  settingsActions.setTheme({ theme: this.detectSystemTheme() }),
-                  settingsActions.setLanguage({ language: initialState.language })
-               );
-            }
-
-            const json = localStorage.getItem('settings');
-            if (!json) {
-               return of(
-                  settingsActions.setTheme({ theme: this.detectSystemTheme() }),
-                  settingsActions.setLanguage({ language: initialState.language })
-               );
-            }
-
-            const saved = JSON.parse(json);
-            const theme = (saved.theme || initialState.theme) as settingsActions.Theme;
-            const language = saved.language || initialState.language;
+            const settings = this.settingsService.getSettings();
 
             return of(
-               settingsActions.setTheme({ theme }),
-               settingsActions.setLanguage({ language })
+               settingsActions.setTheme({ theme: settings.theme }),
+               settingsActions.setLanguage({ language: settings.language })
             );
-         } catch (error) {
-            console.error('Error loading settings:', error);
-            return of(
-               settingsActions.setTheme({ theme: initialState.theme }),
-               settingsActions.setLanguage({ language: initialState.language })
-            );
-         }
          })
       )
    );
@@ -78,35 +37,33 @@ export class SettingsEffects implements OnInitEffects {
    persistSettings$ = createEffect(
       () =>
          this.actions$.pipe(
-         ofType(settingsActions.setTheme, settingsActions.toggleTheme, settingsActions.setLanguage),
+         ofType(
+            settingsActions.setTheme,
+            settingsActions.toggleTheme,
+            settingsActions.setLanguage
+         ),
          withLatestFrom(this.store.select(selectSettings)),
          tap(([_, settings]) => {
-            if (typeof localStorage !== 'undefined' && settings) {
-               try {
-               localStorage.setItem('settings', JSON.stringify(settings));
-               } catch (error) {
-               console.error('Error saving settings to localStorage:', error);
-               }
-            }
+            this.settingsService.saveSettings(settings);
          })
          ),
       { dispatch: false }
    );
 
-  applyTheme$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(settingsActions.setTheme, settingsActions.toggleTheme),
-        withLatestFrom(this.store.select(selectTheme)),
-        tap(([_, theme]) => {
-          if (typeof document !== 'undefined') {
-            const html = document.documentElement;
-            html.classList.toggle('dark', theme === 'dark');
-          }
-        })
-      ),
-    { dispatch: false }
-  );
+   applyTheme$ = createEffect(
+      () =>
+         this.actions$.pipe(
+         ofType(settingsActions.setTheme, settingsActions.toggleTheme),
+         withLatestFrom(this.store.select(selectTheme)),
+         tap(([_, theme]) => {
+            if (typeof document !== 'undefined') {
+               const html = document.documentElement;
+               html.classList.toggle('dark', theme === 'dark');
+            }
+         })
+         ),
+      { dispatch: false }
+   );
 
    applyLanguage$ = createEffect(
       () =>
@@ -117,7 +74,7 @@ export class SettingsEffects implements OnInitEffects {
                if (typeof document !== 'undefined') {
                   document.documentElement.dir = (language === 'fa' || language === 'ar') ? 'rtl' : 'ltr';
                   document.documentElement.lang = language;
-               }
+               };
             })
          ),
       { dispatch: false }
