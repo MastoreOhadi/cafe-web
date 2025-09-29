@@ -6,14 +6,11 @@ import {
 } from '@angular/ssr/node';
 import express from 'express';
 import { join } from 'node:path';
-import cookieParser from 'cookie-parser';
 
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
 const app = express();
 const angularApp = new AngularNodeAppEngine();
-
-app.use(cookieParser());
 
 /**
  * Serve static files from /browser
