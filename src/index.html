@@ -6,6 +6,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="manifest" href="manifest.webmanifest">
+  <script>
+    try {
+      const cookie = document.cookie.split('; ').find(c => c.startsWith('settings='));
+      if (cookie) {
+        const settings = JSON.parse(decodeURIComponent(cookie.split('=')[1]));
+        if (settings.theme === 'dark') {
+          document.documentElement.classList.add('dark');
+        }
+        document.documentElement.lang = settings.language || 'fa';
+        document.documentElement.dir = (settings.language === 'fa' || settings.language === 'ar') ? 'rtl' : 'ltr';
+      }
+    } catch (e) {
+      console.error('Init settings failed', e);
+    }
+  </script>
 </head>
 <body>
   <app-root></app-root>

@@ -30,50 +30,10 @@ app.use(
  * Handle all other requests by rendering the Angular application.
  */
 app.use((req, res, next) => {
-   console.log('🍪 Cookies received:', req.cookies);
-
-   // خواندن state از کوکی‌ها
-   const appSettingsCookie = req.cookies?.['app-settings'];
-   let theme: 'light' | 'dark' = 'light';
-   let language = 'fa';
-
-   // پارس کردن کوکی app-settings اگر وجود دارد
-   if (appSettingsCookie) {
-      try {
-         const parsedSettings = JSON.parse(appSettingsCookie);
-         theme = parsedSettings.theme || 'light';
-         language = parsedSettings.language || 'fa';
-         console.log('🎯 Parsed app-settings cookie:', { theme, language });
-      } catch (error) {
-         console.error('❌ Error parsing app-settings cookie:', error);
-      }
-   }
-
-   // همچنین می‌تونی مستقیماً از کوکی‌های جداگانه هم بخونی
-   const userLanguage = req.cookies?.['user-language'];
-   const userTheme = req.cookies?.['user-theme'];
-
-   if (userLanguage) language = userLanguage;
-   if (userTheme && (userTheme === 'light' || userTheme === 'dark')) {
-      theme = userTheme;
-   }
-
-   console.log('🎯 Final extracted settings:', { theme, language });
-
    angularApp
       .handle(req, {
          headers: req.headers,
-         cookies: req.cookies,
-         // انتقال state به Angular از طریق context
-         context: {
-            appSettings: {
-               theme,
-               language
-            },
-            cookies: req.cookies,
-            // همچنین REQUEST object رو هم پاس بده
-            request: req
-         }
+         cookies: req.headers.cookie || '',
       })
       .then((response) =>
          response ? writeResponseToNodeResponse(response, res) : next()
